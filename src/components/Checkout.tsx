@@ -296,7 +296,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
             });
 
             const orderDetails = `
-✨ GLOW WITH JOO - NEW ORDER
+✨ THE BABE STUDIO - NEW ORDER
 
 📅 ORDER DATE & TIME
 ${dateTimeStamp}

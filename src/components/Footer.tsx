@@ -86,8 +86,7 @@ const Footer: React.FC = () => {
         <div className="text-center">
           <p className="text-xs text-charcoal-500 flex items-center justify-center gap-1">
             Made with
-            <Heart className="w-3 h-3 text-blush-400" fill="currentColor" />
-            © {currentYear} Glow with Joo.
+            © {currentYear} The Babe Studio.
           </p>
         </div>
       </div>
