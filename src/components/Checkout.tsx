@@ -40,7 +40,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
 
     const [orderMessage, setOrderMessage] = useState<string>('');
     const [copied, setCopied] = useState(false);
-    const [contactOpened, setContactOpened] = useState(false);
+    const [contactOpened] = useState(false);
 
     const [orderNumber, setOrderNumber] = useState<string>('');
 
@@ -286,9 +286,9 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
 
             console.log('✅ Order saved to database:', orderData);
 
-            // Generate custom order number: GWJ-XXXX (3-4 random digits)
+            // Generate custom order number: TBS-XXXX (3-4 random digits)
             const randomDigits = Math.floor(Math.random() * 9000 + 1000); // 1000-9999
-            const customOrderNumber = `GWJ-${randomDigits}`;
+            const customOrderNumber = `TBS-${randomDigits}`;
             setOrderNumber(customOrderNumber);
 
             // Get current date and time
@@ -394,8 +394,9 @@ Please confirm this order. Thank you!
     };
 
     const handleOpenContact = () => {
+        // Remove the %2B (+) from Viber as it can cause "address is invalid" in Safari
         const contactUrl = contactMethod === 'viber'
-            ? `viber://chat?number=%2B639496133242&text=${encodeURIComponent(orderMessage)}`
+            ? `viber://chat?number=639496133242&text=${encodeURIComponent(orderMessage)}`
             : contactMethod === 'whatsapp'
                 ? `https://wa.me/639496133242?text=${encodeURIComponent(orderMessage)}`
                 : null;
@@ -484,7 +485,7 @@ Please confirm this order. Thank you!
 
                             {!contactOpened && (
                                 <p className="text-sm text-gray-500">
-                                    If it doesn't open automatically, please manually send the copied message to <span className="font-bold">{contactMethod === 'viber' ? '0949 613 3242 on Viber' : '0949 613 3242 on WhatsApp'}</span>
+                                    If the app doesn't open automatically (or shows an invalid address error), please ensure {contactMethod === 'viber' ? 'Viber' : 'WhatsApp'} is installed, or manually send the copied message to <span className="font-bold">{contactMethod === 'viber' ? '0949 613 3242 on Viber' : '0949 613 3242 on WhatsApp'}</span>
                                 </p>
                             )}
                         </div>
@@ -1009,22 +1010,34 @@ Please confirm this order. Thank you!
                         </h2>
 
                         <div className="space-y-4 mb-6">
-                            {cartItems.map((item, index) => (
-                                <div key={index} className="pb-4 border-b border-gray-100">
-                                    <div className="flex justify-between items-start mb-1">
-                                        <div className="flex-1">
-                                            <h4 className="font-bold text-charcoal-900 text-sm">{item.product.name}</h4>
-                                            {item.variation && (
-                                                <p className="text-xs text-gray-600 mt-0.5">{item.variation.name}</p>
-                                            )}
+                            {cartItems.map((item, index) => {
+                                const basePrice = item.variation ? item.variation.price : item.product.base_price;
+                                let currentPrice = basePrice;
+                                const isDiscounted = item.variation
+                                    ? (item.variation.discount_active && item.variation.discount_price !== null && item.variation.discount_price < basePrice)
+                                    : (item.product.discount_active && item.product.discount_price !== null && item.product.discount_price < item.product.base_price);
+
+                                if (isDiscounted) {
+                                    currentPrice = item.variation?.discount_price || item.product.discount_price || basePrice;
+                                }
+
+                                return (
+                                    <div key={index} className="pb-4 border-b border-gray-100">
+                                        <div className="flex justify-between items-start mb-1">
+                                            <div className="flex-1">
+                                                <h4 className="font-bold text-charcoal-900 text-sm">{item.product.name}</h4>
+                                                {item.variation && (
+                                                    <p className="text-xs text-gray-600 mt-0.5">{item.variation.name}</p>
+                                                )}
+                                            </div>
+                                            <span className="font-bold text-charcoal-900 text-sm">
+                                                ₱{(currentPrice * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 0 })}
+                                            </span>
                                         </div>
-                                        <span className="font-bold text-charcoal-900 text-sm">
-                                            ₱{(item.price * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 0 })}
-                                        </span>
+                                        <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
                                     </div>
-                                    <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
-                                </div>
-                            ))}
+                                )
+                            })}
                         </div>
 
                         {/* Promo Code */}
