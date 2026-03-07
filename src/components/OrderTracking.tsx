@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 
 interface TrackingOrder {
     id: string;
+    order_number: string | null;
     order_status: string;
     payment_status: string;
     tracking_number: string | null;
@@ -90,7 +91,7 @@ const OrderTracking: React.FC = () => {
 
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold text-navy-900 mb-4">Track Your Order</h1>
-                    <p className="text-gray-600">Enter your Order ID to check the current status of your package.</p>
+                    <p className="text-gray-600">Enter your Order Number to check the current status of your package.</p>
                 </div>
 
                 {/* Search Box */}
@@ -102,7 +103,7 @@ const OrderTracking: React.FC = () => {
                                 type="text"
                                 value={orderId}
                                 onChange={(e) => setOrderId(e.target.value)}
-                                placeholder="Enter Order ID (e.g., 8a2b3c...)"
+                                placeholder="Enter Order Number (e.g., TBS-1234)"
                                 className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-navy-900 focus:ring-2 focus:ring-gold-500/20 outline-none transition-all text-lg text-gray-900"
                             />
                         </div>
@@ -152,8 +153,8 @@ const OrderTracking: React.FC = () => {
                                     </h2>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-gray-400 text-sm">Order ID</p>
-                                    <p className="font-mono text-lg">{order.id.slice(0, 8).toUpperCase()}</p>
+                                    <p className="text-gray-400 text-sm">Order Number</p>
+                                    <p className="font-mono text-lg">{order.order_number || order.id.slice(0, 8).toUpperCase()}</p>
                                 </div>
                             </div>
 

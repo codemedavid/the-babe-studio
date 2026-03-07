@@ -227,6 +227,10 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
                 };
             });
 
+            // Generate order number before saving
+            const randomDigits = Math.floor(Math.random() * 9000 + 1000); // 1000-9999
+            const customOrderNumber = `TBS-${randomDigits}`;
+
             // Save order to database
             const { data: orderData, error: orderError } = await supabase
                 .from('orders')
@@ -253,7 +257,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
                     payment_status: 'pending',
                     promo_code_id: appliedPromo?.id || null,
                     promo_code: appliedPromo?.code || null,
-                    discount_applied: discountAmount
+                    discount_applied: discountAmount,
+                    order_number: customOrderNumber
                 }])
                 .select()
                 .single();
@@ -286,9 +291,6 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
 
             console.log('✅ Order saved to database:', orderData);
 
-            // Generate custom order number: TBS-XXXX (3-4 random digits)
-            const randomDigits = Math.floor(Math.random() * 9000 + 1000); // 1000-9999
-            const customOrderNumber = `TBS-${randomDigits}`;
             setOrderNumber(customOrderNumber);
 
             // Get current date and time
@@ -894,7 +896,7 @@ Please confirm this order. Thank you!
                                 </svg>
                                 <div className="text-left">
                                     <p className="font-bold text-charcoal-900 text-sm">Viber</p>
-                                    <p className="text-xs text-gray-500">0998 974 7336</p>
+                                    <p className="text-xs text-gray-500">0949 613 3242</p>
                                 </div>
                             </button>
 
@@ -914,7 +916,7 @@ Please confirm this order. Thank you!
                                 </div>
                                 <div className="text-left">
                                     <p className="font-bold text-charcoal-900 text-sm">WhatsApp</p>
-                                    <p className="text-xs text-gray-500">0998 974 7336</p>
+                                    <p className="text-xs text-gray-500">0949 613 3242</p>
                                 </div>
                             </button>
                         </div>
