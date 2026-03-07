@@ -341,7 +341,7 @@ ${paymentMethod?.name || 'N/A'}
 ${paymentProofUrl ? 'Screenshot attached to order.' : 'Pending'}
 
 📱 CONTACT METHOD
-${contactMethod === 'viber' ? 'Viber (0998 974 7336)' : 'WhatsApp (0998 974 7336)'}
+${contactMethod === 'viber' ? 'Viber (0949 613 3242)' : 'WhatsApp (0949 613 3242)'}
 
 📋 ORDER NUMBER: ${customOrderNumber}
 
@@ -380,9 +380,9 @@ Please confirm this order. Thank you!
 
     const handleOpenContact = () => {
         const contactUrl = contactMethod === 'viber'
-            ? `viber://chat?number=%2B639989747336`
+            ? `viber://chat?number=%2B639496133242&text=${encodeURIComponent(orderMessage)}`
             : contactMethod === 'whatsapp'
-                ? `https://wa.me/639989747336?text=${encodeURIComponent(orderMessage)}`
+                ? `https://wa.me/639496133242?text=${encodeURIComponent(orderMessage)}`
                 : null;
 
         if (contactUrl) {
@@ -469,7 +469,7 @@ Please confirm this order. Thank you!
 
                             {!contactOpened && (
                                 <p className="text-sm text-gray-500">
-                                    If it doesn't open automatically, please manually send the copied message to <span className="font-bold">{contactMethod === 'viber' ? '0998 974 7336 on Viber' : '0998 974 7336 on WhatsApp'}</span>
+                                    If it doesn't open automatically, please manually send the copied message to <span className="font-bold">{contactMethod === 'viber' ? '0949 613 3242 on Viber' : '0949 613 3242 on WhatsApp'}</span>
                                 </p>
                             )}
                         </div>
