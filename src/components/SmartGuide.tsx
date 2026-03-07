@@ -108,7 +108,7 @@ export default function SmartGuide() {
 
                                 {/* Card Content */}
                                 <div className="p-6">
-                                    <h3 className="text-lg font-bold text-navy-900 mb-3 line-clamp-2 group-hover:text-theme-accent transition-colors">
+                                    <h3 className="text-lg font-bold text-navy-900 mb-3 line-clamp-2 group-hover:text-brand-400 transition-colors">
                                         {article.title}
                                     </h3>
 
@@ -135,7 +135,7 @@ export default function SmartGuide() {
                                     </div>
 
                                     {/* Read More */}
-                                    <div className="flex items-center gap-2 text-theme-accent font-semibold text-sm group-hover:gap-3 transition-all">
+                                    <div className="flex items-center gap-2 text-brand-400 font-semibold text-sm group-hover:gap-3 transition-all">
                                         <span>Read Article</span>
                                         <ChevronRight className="w-4 h-4" />
                                     </div>

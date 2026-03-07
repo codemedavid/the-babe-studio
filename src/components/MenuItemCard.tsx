@@ -73,12 +73,12 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2 pointer-events-none z-20">
           {product.featured && (
-            <span className="px-2 py-1 bg-blush-600 text-white text-[10px] font-bold uppercase tracking-wider rounded shadow-sm">
+            <span className="px-2 py-1 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider rounded shadow-sm">
               Featured
             </span>
           )}
           {hasDiscount && (
-            <span className="px-2 py-1 bg-glow-teal-600 text-white text-[10px] font-bold rounded shadow-sm">
+            <span className="px-2 py-1 bg-brand-600 text-white text-[10px] font-bold rounded shadow-sm">
               {Math.round((1 - currentPrice / originalPrice) * 100)}% OFF
             </span>
           )}
@@ -194,7 +194,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
           {/* Cart Status */}
           {cartQuantity > 0 && (
-            <div className="text-center text-[10px] text-bio-green font-medium bg-bio-green-light/50 rounded py-1">
+            <div className="text-center text-[10px] text-emerald-600 font-medium bg-emerald-100/50 rounded py-1">
               {cartQuantity} in cart
             </div>
           )}

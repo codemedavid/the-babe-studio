@@ -62,7 +62,7 @@ export default function ArticleDetail() {
                     <h2 className="text-2xl font-bold text-navy-900 mb-4">Article Not Found</h2>
                     <button
                         onClick={() => navigate('/peptalk')}
-                        className="text-theme-accent hover:underline"
+                        className="text-brand-400 hover:underline"
                     >
                         Back to Articles
                     </button>

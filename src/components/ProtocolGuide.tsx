@@ -50,7 +50,7 @@ const ProtocolGuide: React.FC = () => {
 
                 {/* Header */}
                 <div className="text-center mb-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-blush-200 shadow-soft mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-brand-200 shadow-soft mb-4">
                         <BookOpen className="w-4 h-4 text-rose-500" />
                         <span className="text-xs font-medium text-charcoal-700 uppercase tracking-widest">Protocol Guide</span>
                     </div>
@@ -65,7 +65,7 @@ const ProtocolGuide: React.FC = () => {
 
 
                 {/* General Guidelines */}
-                <div className="bg-white rounded-2xl shadow-soft border border-blush-100 p-6 mb-8">
+                <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-6 mb-8">
                     <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 flex items-center gap-2">
                         <Syringe className="w-5 h-5 text-rose-500" />
                         General Injection Guidelines
@@ -91,17 +91,17 @@ const ProtocolGuide: React.FC = () => {
                 </div>
 
                 {/* Storage Guidelines */}
-                <div className="bg-white rounded-2xl shadow-soft border border-blush-100 p-6 mb-8">
+                <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-6 mb-8">
                     <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 flex items-center gap-2">
                         <Thermometer className="w-5 h-5 text-rose-500" />
                         Storage Guidelines
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                        <div className="bg-blush-50 rounded-xl p-4">
+                        <div className="bg-brand-50 rounded-xl p-4">
                             <p className="font-semibold text-charcoal-800 mb-1">Lyophilized (Powder)</p>
                             <p className="text-charcoal-600">Store at -20°C for long-term. Stable at 2-8°C for weeks.</p>
                         </div>
-                        <div className="bg-blush-50 rounded-xl p-4">
+                        <div className="bg-brand-50 rounded-xl p-4">
                             <p className="font-semibold text-charcoal-800 mb-1">Reconstituted</p>
                             <p className="text-charcoal-600">Refrigerate at 2-8°C. Use within 14-28 days depending on peptide.</p>
                         </div>
@@ -120,7 +120,7 @@ const ProtocolGuide: React.FC = () => {
                     <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="w-full sm:w-64 px-4 py-3 rounded-xl bg-white border border-blush-200 text-charcoal-800 font-medium shadow-soft focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all cursor-pointer"
+                        className="w-full sm:w-64 px-4 py-3 rounded-xl bg-white border border-brand-200 text-charcoal-800 font-medium shadow-soft focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all cursor-pointer"
                     >
                         {categories.map((category) => (
                             <option key={category} value={category}>
@@ -136,7 +136,7 @@ const ProtocolGuide: React.FC = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rose-500"></div>
                     </div>
                 ) : filteredProtocols.length === 0 ? (
-                    <div className="bg-white rounded-2xl shadow-soft border border-blush-100 p-8 text-center">
+                    <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-8 text-center">
                         <p className="text-charcoal-500">No protocols found in this category.</p>
                     </div>
                 ) : (
@@ -144,11 +144,11 @@ const ProtocolGuide: React.FC = () => {
                         {filteredProtocols.map((protocol) => (
                             <div
                                 key={protocol.id}
-                                className="bg-white rounded-2xl shadow-soft border border-blush-100 overflow-hidden"
+                                className="bg-white rounded-2xl shadow-soft border border-brand-100 overflow-hidden"
                             >
                                 <button
                                     onClick={() => toggleProtocol(protocol.id)}
-                                    className="w-full p-5 flex items-center justify-between text-left hover:bg-blush-50/50 transition-colors"
+                                    className="w-full p-5 flex items-center justify-between text-left hover:bg-brand-50/50 transition-colors"
                                 >
                                     <div>
                                         <span className="text-xs font-medium text-rose-500 uppercase tracking-wider">{protocol.category}</span>
@@ -162,19 +162,19 @@ const ProtocolGuide: React.FC = () => {
                                 </button>
 
                                 {expandedProtocol === protocol.id && (
-                                    <div className="px-5 pb-5 border-t border-blush-100">
+                                    <div className="px-5 pb-5 border-t border-brand-100">
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 mb-4">
-                                            <div className="bg-blush-50 rounded-xl p-3">
+                                            <div className="bg-brand-50 rounded-xl p-3">
                                                 <p className="text-xs text-charcoal-500 uppercase tracking-wider">Dosage</p>
                                                 <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.dosage}</p>
                                             </div>
-                                            <div className="bg-blush-50 rounded-xl p-3">
+                                            <div className="bg-brand-50 rounded-xl p-3">
                                                 <p className="text-xs text-charcoal-500 uppercase tracking-wider flex items-center gap-1">
                                                     <Clock className="w-3 h-3" /> Frequency
                                                 </p>
                                                 <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.frequency}</p>
                                             </div>
-                                            <div className="bg-blush-50 rounded-xl p-3">
+                                            <div className="bg-brand-50 rounded-xl p-3">
                                                 <p className="text-xs text-charcoal-500 uppercase tracking-wider">Duration</p>
                                                 <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.duration}</p>
                                             </div>

@@ -73,7 +73,7 @@ const ShippingManager: React.FC<ShippingManagerProps> = ({ onBack }) => {
     if (loading) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white flex items-center justify-center">
-                <div className="animate-spin w-8 h-8 border-2 border-theme-accent border-t-transparent rounded-full" />
+                <div className="animate-spin w-8 h-8 border-2 border-brand-400 border-t-transparent rounded-full" />
             </div>
         );
     }
@@ -168,7 +168,7 @@ const ShippingManager: React.FC<ShippingManagerProps> = ({ onBack }) => {
                         <div className="flex gap-2 mt-3">
                             <button
                                 onClick={handleAddNew}
-                                className="bg-theme-accent text-white px-4 py-2 rounded-lg text-sm font-medium"
+                                className="bg-brand-400 text-white px-4 py-2 rounded-lg text-sm font-medium"
                             >
                                 Add Location
                             </button>
@@ -244,7 +244,7 @@ const ShippingManager: React.FC<ShippingManagerProps> = ({ onBack }) => {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <span className="text-lg font-bold text-theme-accent">
+                                        <span className="text-lg font-bold text-brand-400">
                                             ₱{location.fee.toLocaleString()}
                                         </span>
                                         <div className="flex items-center gap-1">

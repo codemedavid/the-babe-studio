@@ -92,7 +92,7 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
     if (loading) {
         return (
             <div className="flex items-center justify-center p-8">
-                <div className="animate-spin w-8 h-8 border-2 border-theme-accent border-t-transparent rounded-full" />
+                <div className="animate-spin w-8 h-8 border-2 border-brand-400 border-t-transparent rounded-full" />
             </div>
         );
     }

@@ -38,8 +38,8 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
                   flex items-center space-x-2 px-5 py-2.5 rounded-lg font-bold whitespace-nowrap
                   transition-all duration-300 text-sm uppercase tracking-wider
                   ${isSelected
-                                        ? 'bg-blush-600 text-white shadow-glow'
-                                        : 'bg-white text-charcoal-500 hover:text-blush-600 hover:bg-blush-50 border border-blush-100'
+                                        ? 'bg-brand-600 text-white shadow-glow'
+                                        : 'bg-white text-charcoal-500 hover:text-brand-600 hover:bg-brand-50 border border-brand-100'
                                     }
                 `}
                             >

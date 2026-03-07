@@ -218,7 +218,7 @@ export default function GuideManager() {
                         <div className="flex items-center space-x-2">
                             <a
                                 href="/admin"
-                                className="text-gray-700 hover:text-theme-accent transition-colors flex items-center gap-1 group"
+                                className="text-gray-700 hover:text-brand-400 transition-colors flex items-center gap-1 group"
                             >
                                 <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                                 <span className="text-sm">Dashboard</span>
@@ -228,7 +228,7 @@ export default function GuideManager() {
                         </div>
                         <button
                             onClick={() => openModal()}
-                            className="flex items-center gap-2 bg-theme-accent text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-md text-sm"
+                            className="flex items-center gap-2 bg-brand-400 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-md text-sm"
                         >
                             <Plus className="w-4 h-4" />
                             New Article
@@ -255,7 +255,7 @@ export default function GuideManager() {
                         </p>
                         <button
                             onClick={() => openModal()}
-                            className="inline-flex items-center gap-2 bg-theme-accent text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+                            className="inline-flex items-center gap-2 bg-brand-400 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
                         >
                             <Plus className="w-5 h-5" />
                             Create First Article
@@ -361,7 +361,7 @@ export default function GuideManager() {
                                     type="text"
                                     value={modalData.title}
                                     onChange={(e) => setModalData({ ...modalData, title: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent text-gray-900"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent text-gray-900"
                                     placeholder="e.g., Understanding Weight Loss Plateaus and How to Overcome Them"
                                 />
                             </div>
@@ -388,7 +388,7 @@ export default function GuideManager() {
                                     onChange={(e) => setModalData({ ...modalData, preview: e.target.value })}
                                     rows={2}
                                     maxLength={150}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent text-sm text-gray-900"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent text-sm text-gray-900"
                                     placeholder="Short 1-2 line preview (max 150 characters)"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">
@@ -405,7 +405,7 @@ export default function GuideManager() {
                                     value={modalData.content}
                                     onChange={(e) => setModalData({ ...modalData, content: e.target.value })}
                                     rows={15}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent font-mono text-sm text-gray-900"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent font-mono text-sm text-gray-900"
                                     placeholder="Write your full article content here. Use line breaks for paragraphs."
                                 />
                                 <p className="text-xs text-gray-500 mt-2">
@@ -423,7 +423,7 @@ export default function GuideManager() {
                                         type="text"
                                         value={modalData.author}
                                         onChange={(e) => setModalData({ ...modalData, author: e.target.value })}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent text-gray-900"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent text-gray-900"
                                     />
                                 </div>
 
@@ -435,7 +435,7 @@ export default function GuideManager() {
                                         type="date"
                                         value={modalData.published_date}
                                         onChange={(e) => setModalData({ ...modalData, published_date: e.target.value })}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent text-gray-900"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent text-gray-900"
                                     />
                                 </div>
                             </div>
@@ -449,7 +449,7 @@ export default function GuideManager() {
                                     type="number"
                                     value={modalData.display_order}
                                     onChange={(e) => setModalData({ ...modalData, display_order: parseInt(e.target.value) || 0 })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-accent focus:border-transparent text-gray-900"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent text-gray-900"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">
                                     Lower numbers appear first in the article list
@@ -463,7 +463,7 @@ export default function GuideManager() {
                                     id="is_enabled"
                                     checked={modalData.is_enabled}
                                     onChange={(e) => setModalData({ ...modalData, is_enabled: e.target.checked })}
-                                    className="w-5 h-5 text-theme-accent rounded focus:ring-2 focus:ring-theme-accent"
+                                    className="w-5 h-5 text-brand-400 rounded focus:ring-2 focus:ring-brand-400"
                                 />
                                 <label htmlFor="is_enabled" className="text-sm font-medium text-gray-700">
                                     Publish this article (make visible to customers)
@@ -480,7 +480,7 @@ export default function GuideManager() {
                             </button>
                             <button
                                 onClick={saveArticle}
-                                className="px-6 py-2 bg-theme-accent text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                                className="px-6 py-2 bg-brand-400 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
                             >
                                 {editingArticle ? 'Save Changes' : 'Create Article'}
                             </button>

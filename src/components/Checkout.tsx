@@ -411,13 +411,13 @@ Please confirm this order. Thank you!
 
     if (step === 'confirmation') {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-white via-blush-50 to-white flex items-center justify-center px-4 py-12">
+            <div className="min-h-screen bg-gradient-to-br from-white via-brand-50 to-white flex items-center justify-center px-4 py-12">
                 <div className="max-w-2xl w-full">
                     <div className="bg-white rounded shadow-clinical p-8 md:p-12 text-center border border-gray-100">
-                        <div className="bg-bio-green-light w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
-                            <ShieldCheck className="w-12 h-12 text-bio-green" />
+                        <div className="bg-emerald-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                            <ShieldCheck className="w-12 h-12 text-emerald-600" />
                         </div>
-                        <h1 className="font-heading text-3xl md:text-4xl font-bold text-blush-900 mb-4 tracking-tight">
+                        <h1 className="font-heading text-3xl md:text-4xl font-bold text-charcoal-900 mb-4 tracking-tight">
                             Order Confirmed
                         </h1>
                         <p className="text-gray-600 mb-4 text-base md:text-lg leading-relaxed">
@@ -426,9 +426,9 @@ Please confirm this order. Thank you!
 
                         {/* Order ID Display */}
                         {orderNumber && (
-                            <div className="bg-blush-50/20 border border-blush-100 rounded-lg p-4 mb-6">
-                                <p className="text-sm text-blush-700 mb-1 font-bold uppercase tracking-wider">Order Reference</p>
-                                <p className="text-2xl font-bold text-blush-900 font-mono">
+                            <div className="bg-brand-50/20 border border-brand-100 rounded-lg p-4 mb-6">
+                                <p className="text-sm text-brand-700 mb-1 font-bold uppercase tracking-wider">Order Reference</p>
+                                <p className="text-2xl font-bold text-charcoal-900 font-mono">
                                     {orderNumber}
                                 </p>
                                 <p className="text-xs text-gray-500 mt-2">Use this reference for tracking and support</p>
@@ -438,13 +438,13 @@ Please confirm this order. Thank you!
                         {/* Order Message Display */}
                         <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left border border-gray-200">
                             <div className="flex items-center justify-between mb-3">
-                                <h3 className="font-bold text-blush-900 flex items-center gap-2">
-                                    <MessageCircle className="w-5 h-5 text-glow-teal-600" />
+                                <h3 className="font-bold text-charcoal-900 flex items-center gap-2">
+                                    <MessageCircle className="w-5 h-5 text-brand-600" />
                                     Order Details
                                 </h3>
                                 <button
                                     onClick={handleCopyMessage}
-                                    className="flex items-center gap-2 px-4 py-2 bg-blush-600 hover:bg-blush-700 text-white rounded font-medium transition-all text-sm shadow-sm"
+                                    className="flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded font-medium transition-all text-sm shadow-sm"
                                 >
                                     {copied ? (
                                         <>
@@ -465,7 +465,7 @@ Please confirm this order. Thank you!
                                 </pre>
                             </div>
                             {copied && (
-                                <p className="text-bio-green text-sm mt-2 flex items-center gap-1 font-medium">
+                                <p className="text-emerald-600 text-sm mt-2 flex items-center gap-1 font-medium">
                                     <Check className="w-4 h-4" />
                                     Copied to clipboard! Ready to send.
                                 </p>
@@ -489,26 +489,26 @@ Please confirm this order. Thank you!
                             )}
                         </div>
 
-                        <div className="bg-blush-50/20 rounded-lg p-6 mb-8 text-left border border-blush-100">
-                            <h3 className="font-bold text-blush-900 mb-4 flex items-center gap-2">
-                                <Activity className="w-5 h-5 text-glow-teal-600" />
+                        <div className="bg-brand-50/20 rounded-lg p-6 mb-8 text-left border border-brand-100">
+                            <h3 className="font-bold text-charcoal-900 mb-4 flex items-center gap-2">
+                                <Activity className="w-5 h-5 text-brand-600" />
                                 Next Steps
                             </h3>
                             <ul className="space-y-3 text-sm text-gray-700">
                                 <li className="flex items-start gap-3">
-                                    <span className="font-bold text-blush-500">1.</span>
+                                    <span className="font-bold text-brand-500">1.</span>
                                     <span>Confirmation within 24 hours of payment receipt.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <span className="font-bold text-blush-500">2.</span>
+                                    <span className="font-bold text-brand-500">2.</span>
                                     <span>Research-grade packaging and secure handling.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <span className="font-bold text-blush-500">3.</span>
+                                    <span className="font-bold text-brand-500">3.</span>
                                     <span>Same-day shipping for verified payments before 11 AM.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <span className="font-bold text-blush-500">4.</span>
+                                    <span className="font-bold text-brand-500">4.</span>
                                     <span>Tracking details sent via your selected contact method after dispatch.</span>
                                 </li>
                             </ul>
@@ -537,15 +537,15 @@ Please confirm this order. Thank you!
                 <div className="container mx-auto px-4 max-w-5xl">
                     <button
                         onClick={() => setStep('details')}
-                        className="text-gray-500 hover:text-blush-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
+                        className="text-gray-500 hover:text-brand-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         <span>Back to Details</span>
                     </button>
 
-                    <h1 className="font-heading text-2xl md:text-3xl font-bold text-blush-900 mb-8 flex items-center gap-3">
+                    <h1 className="font-heading text-2xl md:text-3xl font-bold text-charcoal-900 mb-8 flex items-center gap-3">
                         Payment & Verification
-                        <Lock className="w-6 h-6 text-glow-teal-600" />
+                        <Lock className="w-6 h-6 text-brand-600" />
                     </h1>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -553,8 +553,8 @@ Please confirm this order. Thank you!
 
                             {/* Payment Methods */}
                             <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                                <h2 className="font-heading text-lg font-bold text-blush-900 mb-4 flex items-center gap-2">
-                                    <CreditCard className="w-5 h-5 text-glow-teal-600" />
+                                <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-4 flex items-center gap-2">
+                                    <CreditCard className="w-5 h-5 text-brand-600" />
                                     Select Payment Method
                                 </h2>
                                 <div className="space-y-3">
@@ -562,8 +562,8 @@ Please confirm this order. Thank you!
                                         <div key={method.id}>
                                             <label
                                                 className={`block p-4 rounded border cursor-pointer transition-all ${selectedPaymentMethod === method.id
-                                                    ? 'border-blush-500 bg-blush-50/20 ring-1 ring-blush-500'
-                                                    : 'border-gray-200 hover:border-blush-300'
+                                                    ? 'border-brand-500 bg-brand-50/20 ring-1 ring-brand-500'
+                                                    : 'border-gray-200 hover:border-brand-300'
                                                     }`}
                                             >
                                                 <div className="flex items-center gap-3">
@@ -573,12 +573,12 @@ Please confirm this order. Thank you!
                                                         value={method.id}
                                                         checked={selectedPaymentMethod === method.id}
                                                         onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                                                        className="text-blush-600 focus:ring-blush-500"
+                                                        className="text-brand-600 focus:ring-brand-500"
                                                     />
                                                     <div className="flex-1">
                                                         <div className="flex justify-between items-start">
                                                             <div>
-                                                                <p className="font-bold text-blush-900">{method.name}</p>
+                                                                <p className="font-bold text-charcoal-900">{method.name}</p>
                                                                 <p className="text-sm text-gray-600 font-mono mt-1">{method.account_number}</p>
                                                                 {method.account_name && (
                                                                     <p className="text-xs text-gray-500 mt-0.5">Account Name: {method.account_name}</p>
@@ -612,11 +612,11 @@ Please confirm this order. Thank you!
 
                             {/* Payment Proof Upload */}
                             <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                                <h2 className="font-heading text-lg font-bold text-blush-900 mb-4 flex items-center gap-2">
-                                    <Upload className="w-5 h-5 text-glow-teal-600" />
+                                <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-4 flex items-center gap-2">
+                                    <Upload className="w-5 h-5 text-brand-600" />
                                     Upload Proof of Payment
                                 </h2>
-                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blush-400 transition-colors bg-gray-50/50">
+                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-brand-400 transition-colors bg-gray-50/50">
                                     <input
                                         type="file"
                                         accept="image/*"
@@ -631,14 +631,14 @@ Please confirm this order. Thank you!
                                     <label htmlFor="payment-proof-upload" className="cursor-pointer flex flex-col items-center">
                                         {paymentProof ? (
                                             <>
-                                                <Check className="w-12 h-12 text-bio-green mb-3" />
-                                                <p className="font-medium text-blush-900">{paymentProof.name}</p>
+                                                <Check className="w-12 h-12 text-emerald-600 mb-3" />
+                                                <p className="font-medium text-charcoal-900">{paymentProof.name}</p>
                                                 <p className="text-sm text-gray-500 mt-1">Click to change file</p>
                                             </>
                                         ) : (
                                             <>
                                                 <Upload className="w-12 h-12 text-gray-400 mb-3" />
-                                                <p className="font-medium text-blush-900">Click to upload screenshot</p>
+                                                <p className="font-medium text-charcoal-900">Click to upload screenshot</p>
                                                 <p className="text-xs text-gray-500 mt-1">Gcash/Bank transfer receipt</p>
                                             </>
                                         )}
@@ -648,13 +648,13 @@ Please confirm this order. Thank you!
 
                             {/* Notes */}
                             <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                                <h2 className="font-heading text-lg font-bold text-blush-900 mb-4">
+                                <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-4">
                                     Additional Notes (Optional)
                                 </h2>
                                 <textarea
                                     value={notes}
                                     onChange={(e) => setNotes(e.target.value)}
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blush-500 transition-all text-sm h-24"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm h-24"
                                     placeholder="Special instructions for delivery..."
                                 />
                             </div>
@@ -671,7 +671,7 @@ Please confirm this order. Thank you!
                         {/* Sidebar Summary (Reused logic, simplified UI) */}
                         <div className="lg:col-span-1">
                             <div className="bg-white rounded shadow-clinical p-6 sticky top-24 border border-gray-100">
-                                <h3 className="font-heading font-bold text-blush-900 mb-4">Order Summary</h3>
+                                <h3 className="font-heading font-bold text-charcoal-900 mb-4">Order Summary</h3>
                                 <div className="space-y-2 mb-4">
                                     {cartItems.map((item, idx) => {
                                         const basePrice = item.variation ? item.variation.price : item.product.base_price;
@@ -701,12 +701,12 @@ Please confirm this order. Thank you!
                                         <span>₱{shippingFee.toLocaleString()}</span>
                                     </div>
                                     {discountAmount > 0 && (
-                                        <div className="flex justify-between text-bio-green font-medium">
+                                        <div className="flex justify-between text-emerald-600 font-medium">
                                             <span>Discount</span>
                                             <span>-₱{discountAmount.toLocaleString()}</span>
                                         </div>
                                     )}
-                                    <div className="flex justify-between font-bold text-blush-900 text-lg pt-2">
+                                    <div className="flex justify-between font-bold text-charcoal-900 text-lg pt-2">
                                         <span>Total</span>
                                         <span>₱{finalTotal.toLocaleString()}</span>
                                     </div>
@@ -726,15 +726,15 @@ Please confirm this order. Thank you!
             <div className="container mx-auto px-4 max-w-6xl">
                 <button
                     onClick={onBack}
-                    className="text-gray-500 hover:text-blush-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
+                    className="text-gray-500 hover:text-brand-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span>Back to Cart</span>
                 </button>
 
-                <h1 className="font-heading text-2xl md:text-3xl font-bold text-blush-900 mb-8 flex items-center gap-3">
+                <h1 className="font-heading text-2xl md:text-3xl font-bold text-charcoal-900 mb-8 flex items-center gap-3">
                     Checkout Information
-                    <Activity className="w-6 h-6 text-glow-teal-600" />
+                    <Activity className="w-6 h-6 text-brand-600" />
                 </h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -742,15 +742,15 @@ Please confirm this order. Thank you!
                     <div className="lg:col-span-2 space-y-6">
                         {/* Customer Information */}
                         <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                            <h2 className="font-heading text-lg font-bold text-blush-900 mb-6 flex items-center gap-2">
-                                <div className="bg-blush-50 p-2 rounded text-blush-600">
+                            <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
+                                <div className="bg-brand-50 p-2 rounded text-brand-600">
                                     <Package className="w-5 h-5" />
                                 </div>
                                 Customer Details
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         Full Name *
                                     </label>
                                     <input
@@ -763,7 +763,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         Email Address *
                                     </label>
                                     <input
@@ -776,7 +776,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         Phone Number *
                                     </label>
                                     <input
@@ -793,15 +793,15 @@ Please confirm this order. Thank you!
 
                         {/* Shipping Address */}
                         <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                            <h2 className="font-heading text-lg font-bold text-blush-900 mb-6 flex items-center gap-2">
-                                <div className="bg-blush-50 p-2 rounded text-blush-600">
+                            <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
+                                <div className="bg-brand-50 p-2 rounded text-brand-600">
                                     <Database className="w-5 h-5" />
                                 </div>
                                 Shipping Address
                             </h2>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         Street Address *
                                     </label>
                                     <input
@@ -814,7 +814,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         Barangay *
                                     </label>
                                     <input
@@ -828,7 +828,7 @@ Please confirm this order. Thank you!
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                        <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                             City *
                                         </label>
                                         <input
@@ -841,7 +841,7 @@ Please confirm this order. Thank you!
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                        <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                             Province *
                                         </label>
                                         <input
@@ -855,7 +855,7 @@ Please confirm this order. Thank you!
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-blush-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
                                         ZIP/Postal Code *
                                     </label>
                                     <input
@@ -872,8 +872,8 @@ Please confirm this order. Thank you!
 
                         {/* Contact Method Selection */}
                         <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                            <h2 className="font-heading text-lg font-bold text-blush-900 mb-3 flex items-center gap-2">
-                                <MessageCircle className="w-5 h-5 text-glow-teal-600" />
+                            <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-3 flex items-center gap-2">
+                                <MessageCircle className="w-5 h-5 text-brand-600" />
                                 Contact Method *
                             </h2>
                             <p className="text-xs text-gray-500 mb-4">
@@ -884,15 +884,15 @@ Please confirm this order. Thank you!
                                 type="button"
                                 onClick={() => setContactMethod('viber')}
                                 className={`p-4 rounded border transition-all flex items-center gap-3 ${contactMethod === 'viber'
-                                    ? 'border-blush-600 bg-blush-50 ring-1 ring-blush-600'
-                                    : 'border-gray-200 hover:border-blush-300'
+                                    ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                                    : 'border-gray-200 hover:border-brand-300'
                                     }`}
                             >
                                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M21.624 19.344C20.618 20.35 18.257 21.018 17.653 21.119C16.921 21.238 16.331 21.229 15.776 21.161C14.075 20.957 11.836 20.065 9.421 17.652C7.008 15.236 6.115 12.997 5.912 11.296C5.844 10.741 5.834 10.151 5.953 9.419C6.054 8.815 6.722 6.453 7.728 5.447C8.016 5.16 8.441 5.152 8.74 5.433C9.098 5.769 9.873 6.643 10.233 7.072C10.518 7.411 10.518 7.904 10.247 8.249C9.972 8.6 9.497 9.062 9.165 9.387C9.049 9.501 8.981 9.658 9.04 9.813C9.28 10.439 10.057 12.164 11.889 13.996C13.722 15.828 15.447 16.604 16.073 16.844C16.228 16.904 16.386 16.836 16.499 16.719C16.825 16.388 17.286 15.912 17.638 15.637C17.982 15.366 18.475 15.367 18.814 15.652C19.243 16.012 20.117 16.787 20.453 17.145C20.733 17.444 20.726 17.869 20.439 18.156L21.624 19.344Z" />
                                 </svg>
                                 <div className="text-left">
-                                    <p className="font-bold text-blush-900 text-sm">Viber</p>
+                                    <p className="font-bold text-charcoal-900 text-sm">Viber</p>
                                     <p className="text-xs text-gray-500">0998 974 7336</p>
                                 </div>
                             </button>
@@ -902,8 +902,8 @@ Please confirm this order. Thank you!
                                 type="button"
                                 onClick={() => setContactMethod('whatsapp')}
                                 className={`p-4 rounded border transition-all flex items-center gap-3 ${contactMethod === 'whatsapp'
-                                    ? 'border-blush-600 bg-blush-50 ring-1 ring-blush-600'
-                                    : 'border-gray-200 hover:border-blush-300'
+                                    ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                                    : 'border-gray-200 hover:border-brand-300'
                                     }`}
                             >
                                 <div className="w-6 h-6 flex items-center justify-center bg-green-500 rounded-full text-white">
@@ -912,7 +912,7 @@ Please confirm this order. Thank you!
                                     </svg>
                                 </div>
                                 <div className="text-left">
-                                    <p className="font-bold text-blush-900 text-sm">WhatsApp</p>
+                                    <p className="font-bold text-charcoal-900 text-sm">WhatsApp</p>
                                     <p className="text-xs text-gray-500">0998 974 7336</p>
                                 </div>
                             </button>
@@ -921,8 +921,8 @@ Please confirm this order. Thank you!
 
                     {/* Courier Selection */}
                     <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                        <h2 className="font-heading text-lg font-bold text-blush-900 mb-3 flex items-center gap-2">
-                            <Truck className="w-5 h-5 text-glow-teal-600" />
+                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-3 flex items-center gap-2">
+                            <Truck className="w-5 h-5 text-brand-600" />
                             Select Courier Provider *
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -936,11 +936,11 @@ Please confirm this order. Thank you!
                                             setShippingLocation(''); // Reset location when courier changes
                                         }}
                                         className={`p-4 rounded border transition-all text-left flex items-center gap-3 ${selectedCourierId === courier.id
-                                            ? 'border-blush-600 bg-blush-50 ring-1 ring-blush-600'
-                                            : 'border-gray-200 hover:border-blush-300'
+                                            ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                                            : 'border-gray-200 hover:border-brand-300'
                                             }`}
                                     >
-                                        <div className="font-bold text-blush-900 text-sm">{courier.name}</div>
+                                        <div className="font-bold text-charcoal-900 text-sm">{courier.name}</div>
                                     </button>
                                 ))}
                         </div>
@@ -948,7 +948,7 @@ Please confirm this order. Thank you!
 
                     {/* Shipping Location Selection */}
                     <div className={`bg-white rounded shadow-clinical p-6 border border-gray-100 transition-opacity duration-300 ${!selectedCourierId ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                        <h2 className="font-heading text-lg font-bold text-blush-900 mb-3 flex items-center gap-2">
+                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-3 flex items-center gap-2">
                             Choose Shipping Region *
                         </h2>
                         <p className="text-xs text-gray-500 mb-6 bg-blue-50 p-3 rounded border border-blue-100">
@@ -977,12 +977,12 @@ Please confirm this order. Thank you!
                                         key={loc.id}
                                         onClick={() => setShippingLocation(loc.id)}
                                         className={`p-4 rounded border transition-all text-left ${shippingLocation === loc.id
-                                            ? 'border-blush-600 bg-blush-50 ring-1 ring-blush-600'
-                                            : 'border-gray-200 hover:border-blush-300'
+                                            ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                                            : 'border-gray-200 hover:border-brand-300'
                                             }`}
                                     >
-                                        <p className="font-bold text-blush-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
-                                        <p className="text-xs text-glow-teal-600 font-medium">₱{loc.fee}</p>
+                                        <p className="font-bold text-charcoal-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
+                                        <p className="text-xs text-brand-600 font-medium">₱{loc.fee}</p>
                                     </button>
                                 ))}
                         </div>
@@ -1003,9 +1003,9 @@ Please confirm this order. Thank you!
                 {/* Order Summary Sidebar */}
                 <div className="lg:col-span-1">
                     <div className="bg-white rounded shadow-clinical p-6 sticky top-24 border border-gray-100">
-                        <h2 className="font-heading text-lg font-bold text-blush-900 mb-6 flex items-center gap-2">
+                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
                             Order Summary
-                            <Activity className="w-4 h-4 text-glow-teal-600" />
+                            <Activity className="w-4 h-4 text-brand-600" />
                         </h2>
 
                         <div className="space-y-4 mb-6">
@@ -1013,12 +1013,12 @@ Please confirm this order. Thank you!
                                 <div key={index} className="pb-4 border-b border-gray-100">
                                     <div className="flex justify-between items-start mb-1">
                                         <div className="flex-1">
-                                            <h4 className="font-bold text-blush-900 text-sm">{item.product.name}</h4>
+                                            <h4 className="font-bold text-charcoal-900 text-sm">{item.product.name}</h4>
                                             {item.variation && (
                                                 <p className="text-xs text-gray-600 mt-0.5">{item.variation.name}</p>
                                             )}
                                         </div>
-                                        <span className="font-bold text-blush-900 text-sm">
+                                        <span className="font-bold text-charcoal-900 text-sm">
                                             ₱{(item.price * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                                         </span>
                                     </div>
@@ -1029,7 +1029,7 @@ Please confirm this order. Thank you!
 
                         {/* Promo Code */}
                         <div className="mb-6 pt-2">
-                            <p className="text-xs font-bold text-blush-700 uppercase mb-2 flex items-center gap-1">
+                            <p className="text-xs font-bold text-brand-700 uppercase mb-2 flex items-center gap-1">
                                 <Tag className="w-3 h-3" /> Promo Code
                             </p>
                             <div className="flex gap-2">
@@ -1038,7 +1038,7 @@ Please confirm this order. Thank you!
                                     value={promoCode}
                                     onChange={(e) => setPromoCode(e.target.value)}
                                     placeholder="ENTER CODE"
-                                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blush-500 focus:border-blush-500 outline-none uppercase"
+                                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-brand-500 focus:border-brand-500 outline-none uppercase"
                                     disabled={!!appliedPromo || isApplyingPromo}
                                 />
                                 {appliedPromo ? (
@@ -1059,14 +1059,14 @@ Please confirm this order. Thank you!
                                         type="button"
                                         onClick={handleApplyPromoCode}
                                         disabled={!promoCode || isApplyingPromo}
-                                        className="px-3 py-2 bg-blush-600 text-white rounded text-xs font-bold hover:bg-blush-700 disabled:opacity-50 shrink-0 whitespace-nowrap"
+                                        className="px-3 py-2 bg-brand-600 text-white rounded text-xs font-bold hover:bg-brand-700 disabled:opacity-50 shrink-0 whitespace-nowrap"
                                     >
                                         APPLY
                                     </button>
                                 )}
                             </div>
                             {promoError && <p className="text-red-500 text-xs mt-1">{promoError}</p>}
-                            {promoSuccess && <p className="text-bio-green text-xs mt-1 font-medium">{promoSuccess}</p>}
+                            {promoSuccess && <p className="text-emerald-600 text-xs mt-1 font-medium">{promoSuccess}</p>}
                         </div>
 
                         <div className="space-y-2 text-sm text-gray-600 border-t border-gray-100 pt-4">
@@ -1075,12 +1075,12 @@ Please confirm this order. Thank you!
                                 <span>₱{totalPrice.toLocaleString()}</span>
                             </div>
                             {discountAmount > 0 && (
-                                <div className="flex justify-between text-bio-green font-medium">
+                                <div className="flex justify-between text-emerald-600 font-medium">
                                     <span>Discount</span>
                                     <span>-₱{discountAmount.toLocaleString()}</span>
                                 </div>
                             )}
-                            <div className="flex justify-between font-bold text-blush-900 text-base pt-2">
+                            <div className="flex justify-between font-bold text-charcoal-900 text-base pt-2">
                                 <span>Total Estimate</span>
                                 <span>₱{Math.max(0, totalPrice - discountAmount).toLocaleString()}</span>
                             </div>

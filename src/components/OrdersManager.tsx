@@ -556,7 +556,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onView, getStatusColor, ge
               e.stopPropagation();
               onView();
             }}
-            className="px-3 md:px-4 py-1.5 md:py-2 bg-science-blue-900 hover:bg-science-blue-800 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-1 md:gap-2 shadow-md hover:shadow-lg"
+            className="px-3 md:px-4 py-1.5 md:py-2 bg-charcoal-900 hover:bg-charcoal-800 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-1 md:gap-2 shadow-md hover:shadow-lg"
           >
             <Eye className="w-3 h-3 md:w-4 md:h-4" />
             View Details

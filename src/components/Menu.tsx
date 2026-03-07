@@ -129,7 +129,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="text-science-blue-600 font-semibold hover:underline"
+                    className="text-charcoal-600 font-semibold hover:underline"
                   >
                     Clear Search
                   </button>

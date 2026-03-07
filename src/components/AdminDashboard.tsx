@@ -542,7 +542,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={handleCancel}
-                    className="text-gray-700 hover:text-theme-accent transition-colors flex items-center gap-1 group"
+                    className="text-gray-700 hover:text-brand-400 transition-colors flex items-center gap-1 group"
                   >
                     <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-xs md:text-sm">Back</span>
@@ -740,7 +740,7 @@ const AdminDashboard: React.FC = () => {
                           setInclusionsText(formData.inclusions ? formData.inclusions.join('\n') : '');
                         }
                       }}
-                      className="w-4 h-4 text-theme-accent rounded focus:ring-theme-accent"
+                      className="w-4 h-4 text-brand-400 rounded focus:ring-brand-400"
                     />
                     <span className="text-xs font-semibold text-gray-700">This is a SET product</span>
                   </label>
@@ -762,7 +762,7 @@ const AdminDashboard: React.FC = () => {
                       rows={6}
                     />
                     <p className="text-xs text-gray-500 mt-2 flex items-start gap-1.5">
-                      <span className="text-theme-accent font-bold">💡</span>
+                      <span className="text-brand-400 font-bold">💡</span>
                       <span>Enter each item on a new line. These will be displayed as a checklist on the product detail page. Check "This is a SET product" above to enable this feature.</span>
                     </p>
                     <button
@@ -790,7 +790,7 @@ const AdminDashboard: React.FC = () => {
                         const items = formatted.split('\n').filter(item => item.trim() !== '');
                         setFormData({ ...formData, inclusions: items.length > 0 ? items : null });
                       }}
-                      className="mt-2 text-xs font-semibold text-science-blue-600 hover:text-science-blue-800 flex items-center gap-1 bg-science-blue-50 px-2 py-1 rounded border border-science-blue-100 transition-colors"
+                      className="mt-2 text-xs font-semibold text-charcoal-600 hover:text-charcoal-800 flex items-center gap-1 bg-charcoal-50 px-2 py-1 rounded border border-charcoal-100 transition-colors"
                     >
                       <Sparkles className="w-3 h-3" />
                       Auto-Format List
@@ -805,7 +805,7 @@ const AdminDashboard: React.FC = () => {
                         setFormData({ ...formData, inclusions: [] });
                         setInclusionsText('');
                       }}
-                      className="text-xs text-theme-accent hover:text-gold-700 font-medium"
+                      className="text-xs text-brand-400 hover:text-gold-700 font-medium"
                     >
                       Enable SET feature
                     </button>
@@ -837,7 +837,7 @@ const AdminDashboard: React.FC = () => {
                         type="checkbox"
                         checked={formData.featured || false}
                         onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                        className="w-4 h-4 text-theme-accent rounded focus:ring-theme-accent"
+                        className="w-4 h-4 text-brand-400 rounded focus:ring-brand-400"
                       />
                       <span className="text-xs font-semibold text-gray-700">⭐ Featured</span>
                     </label>
@@ -880,7 +880,7 @@ const AdminDashboard: React.FC = () => {
                         type="checkbox"
                         checked={formData.discount_active || false}
                         onChange={(e) => setFormData({ ...formData, discount_active: e.target.checked })}
-                        className="w-4 h-4 text-red-600 rounded focus:ring-theme-accent"
+                        className="w-4 h-4 text-red-600 rounded focus:ring-brand-400"
                       />
                       <span className="text-xs font-semibold text-gray-700">🏷️ Enable Discount</span>
                     </label>
@@ -939,7 +939,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => setCurrentView('dashboard')}
-                    className="text-gray-700 hover:text-theme-accent transition-colors flex items-center gap-1 group"
+                    className="text-gray-700 hover:text-brand-400 transition-colors flex items-center gap-1 group"
                   >
                     <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-xs md:text-sm">Dashboard</span>
@@ -991,7 +991,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setSelectedProducts(new Set())}
-                  className="text-xs text-theme-accent hover:text-gold-700 font-medium underline"
+                  className="text-xs text-brand-400 hover:text-gold-700 font-medium underline"
                 >
                   Clear Selection
                 </button>
@@ -1008,7 +1008,7 @@ const AdminDashboard: React.FC = () => {
                         type="checkbox"
                         checked={selectedProducts.has(product.id)}
                         onChange={() => toggleSelectProduct(product.id)}
-                        className="mt-0.5 w-4 h-4 text-theme-accent rounded focus:ring-theme-accent cursor-pointer shrink-0"
+                        className="mt-0.5 w-4 h-4 text-brand-400 rounded focus:ring-brand-400 cursor-pointer shrink-0"
                       />
                       <div className="flex-1 min-w-0">
                         <h3 className="text-sm font-bold text-gray-900 truncate">{product.name}</h3>
@@ -1026,7 +1026,7 @@ const AdminDashboard: React.FC = () => {
                         disabled={isProcessing}
                         className={`p - 1.5 rounded - lg transition - all disabled: opacity - 50 disabled: cursor - not - allowed ${product.variations && product.variations.length > 0
                           ? 'bg-gold-500 text-black hover:bg-gold-600 shadow-md cursor-pointer'
-                          : 'text-theme-accent hover:bg-gray-100 cursor-pointer'
+                          : 'text-brand-400 hover:bg-gray-100 cursor-pointer'
                           } `}
                         title="Manage Sizes - Click to edit prices!"
                       >
@@ -1062,7 +1062,7 @@ const AdminDashboard: React.FC = () => {
                       </div>
                       <div>
                         <div className="text-[10px] text-gray-500">Sizes</div>
-                        <div className="text-sm font-semibold text-theme-accent">{product.variations?.length || 0}</div>
+                        <div className="text-sm font-semibold text-brand-400">{product.variations?.length || 0}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-1">
@@ -1090,7 +1090,7 @@ const AdminDashboard: React.FC = () => {
                           type="checkbox"
                           checked={selectedProducts.size === products.length && products.length > 0}
                           onChange={toggleSelectAll}
-                          className="w-4 h-4 text-theme-accent rounded focus:ring-theme-accent cursor-pointer"
+                          className="w-4 h-4 text-brand-400 rounded focus:ring-brand-400 cursor-pointer"
                           title="Select All"
                         />
                       </th>
@@ -1112,7 +1112,7 @@ const AdminDashboard: React.FC = () => {
                             type="checkbox"
                             checked={selectedProducts.has(product.id)}
                             onChange={() => toggleSelectProduct(product.id)}
-                            className="w-4 h-4 text-theme-accent rounded focus:ring-theme-accent cursor-pointer"
+                            className="w-4 h-4 text-brand-400 rounded focus:ring-brand-400 cursor-pointer"
                           />
                         </td>
                         <td className="px-4 py-2">
@@ -1125,7 +1125,7 @@ const AdminDashboard: React.FC = () => {
                         <td className="px-4 py-2 text-xs font-bold text-gray-900">
                           ₱{product.base_price.toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                           {product.variations && product.variations.length > 0 && (
-                            <div className="text-[9px] text-theme-accent font-medium mt-0.5">
+                            <div className="text-[9px] text-brand-400 font-medium mt-0.5">
                               Not used (has sizes)
                             </div>
                           )}
@@ -1137,7 +1137,7 @@ const AdminDashboard: React.FC = () => {
                                 {product.variations.length} {product.variations.length === 1 ? 'size' : 'sizes'}
                               </span>
                               <div className="text-[9px] text-gray-500 mt-0.5">
-                                Click <Layers className="w-2.5 h-2.5 inline text-theme-accent" /> to edit
+                                Click <Layers className="w-2.5 h-2.5 inline text-brand-400" /> to edit
                               </div>
                             </div>
                           ) : (
