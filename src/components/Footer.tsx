@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <img
-              src="/logo.jpeg"
+              src="/logo.jpeg?v=2"
               alt="The Babe Studio"
               className="h-14 w-auto object-contain bg-white/10 rounded-lg p-2"
             />

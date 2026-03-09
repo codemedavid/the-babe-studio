@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               className="flex items-center hover:opacity-90 transition-opacity"
             >
               <img
-                src="/logo.jpeg"
+                src="/logo.jpeg?v=2"
                 alt="The Babe Studio"
                 className="h-10 sm:h-12 w-auto object-contain rounded-lg"
               />
@@ -119,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
             <div className="flex items-center justify-between p-5 border-b border-brand-100">
               <div className="flex items-center gap-3">
                 <img
-                  src="/logo.jpeg"
+                  src="/logo.jpeg?v=2"
                   alt="The Babe Studio"
                   className="h-8 w-auto object-contain rounded-md"
                 />
