@@ -57,16 +57,23 @@ export const useCouriers = () => {
 
     const updateCourier = async (id: string, updates: Partial<Courier>) => {
         try {
+            // Convert empty tracking_url_template to null
+            const cleanedUpdates = {
+                ...updates,
+                tracking_url_template: updates.tracking_url_template || null
+            };
+
             const { data, error } = await supabase
                 .from('couriers')
-                .update(updates)
+                .update(cleanedUpdates)
                 .eq('id', id)
-                .select()
-                .single();
+                .select();
 
             if (error) throw error;
-            setCouriers(prev => prev.map(c => c.id === id ? data : c));
-            return data;
+            if (data && data.length > 0) {
+                setCouriers(prev => prev.map(c => c.id === id ? data[0] : c));
+                return data[0];
+            }
         } catch (error) {
             console.error('Error updating courier:', error);
             throw error;

@@ -37,8 +37,8 @@ const FAQ: React.FC = () => {
         ? faqs.filter(faq => faq.category === activeCategory)
         : faqs;
 
-    const viberUrl = 'viber://chat?number=%2B639989747336';
-    const whatsappUrl = 'https://wa.me/639989747336';
+    const viberUrl = 'viber://chat?number=%2B639496133242';
+    const whatsappUrl = 'https://wa.me/639496133242';
 
     if (loading) {
         return (

@@ -12,6 +12,8 @@ export interface Protocol {
     storage: string;
     sort_order: number;
     active: boolean;
+    content_type: 'text' | 'file' | 'image';
+    file_url: string | null;
     product_id?: string;
     created_at: string;
     updated_at: string;

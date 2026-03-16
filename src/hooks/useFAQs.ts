@@ -117,7 +117,7 @@ const defaultFAQs: FAQItem[] = [
     {
         id: '10',
         question: 'Where are you located?',
-        answer: '📍 Merville, Parañaque City',
+        answer: '📍 General Trias, Cavite',
         category: 'SHIPPING & DELIVERY',
         order_index: 10,
         is_active: true,

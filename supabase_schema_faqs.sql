@@ -51,7 +51,7 @@ FROM (VALUES
   ('Do you offer bundles or discounts?', 'Yes — I offer curated bundles and custom sets.\nMessage me for personalized bundle options.', 'ORDERING & PACKAGING', 7, true),
   ('Can I return items?', '• Pens: Returnable within 1 week if defective.\n• Needles and syringes: Not returnable for hygiene and safety.', 'ORDERING & PACKAGING', 8, true),
   ('What payment options do you accept?', '• GCash\n• Security Bank\n• BDO\n\n❌ COD is not accepted, except for Lalamove\n→ You can pay the rider directly or have the rider pay upfront on your behalf.', 'PAYMENT METHODS', 9, true),
-  ('Where are you located?', '📍 Merville, Parañaque City', 'SHIPPING & DELIVERY', 10, true),
+  ('Where are you located?', '📍 General Trias, Cavite', 'SHIPPING & DELIVERY', 10, true),
   ('How long is shipping?', '📦 J&T Express: Usually 2–3 days\n(Transit time may vary by location and sorting)', 'SHIPPING & DELIVERY', 11, true),
   ('When do orders ship out?', 'Orders placed before 11:00 AM ship out on the next J&T schedule (Tuesday & Thursday)\n→ Subject to order volume.', 'SHIPPING & DELIVERY', 12, true),
   ('Do you ship nationwide?', 'Yes —\n• J&T Express (nationwide)\n• Lalamove (Metro Manila & nearby areas)', 'SHIPPING & DELIVERY', 13, true)

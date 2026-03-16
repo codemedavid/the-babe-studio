@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, FlaskConical, Syringe, Thermometer, Clock, AlertTriangle, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { ArrowLeft, FlaskConical, Syringe, Thermometer, Clock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, FileText, Download } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { useCart } from '../hooks/useCart';
@@ -163,44 +163,81 @@ const ProtocolGuide: React.FC = () => {
 
                                 {expandedProtocol === protocol.id && (
                                     <div className="px-5 pb-5 border-t border-brand-100">
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 mb-4">
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider">Dosage</p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.dosage}</p>
-                                            </div>
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider flex items-center gap-1">
-                                                    <Clock className="w-3 h-3" /> Frequency
-                                                </p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.frequency}</p>
-                                            </div>
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider">Duration</p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.duration}</p>
-                                            </div>
-                                        </div>
-
-                                        {protocol.notes && protocol.notes.length > 0 && (
-                                            <div className="mb-4">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider mb-2">Protocol Notes</p>
-                                                <ul className="space-y-2">
-                                                    {protocol.notes.map((note, idx) => (
-                                                        <li key={idx} className="flex items-start gap-2 text-sm text-charcoal-700">
-                                                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                                                            {note}
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                        {/* Image content */}
+                                        {protocol.content_type === 'image' && protocol.file_url && (
+                                            <div className="mt-4">
+                                                <img
+                                                    src={protocol.file_url}
+                                                    alt={`${protocol.name} protocol`}
+                                                    className="w-full max-w-2xl mx-auto rounded-xl shadow-sm"
+                                                />
                                             </div>
                                         )}
 
-                                        {protocol.storage && (
-                                            <div className="bg-amber-50 rounded-xl p-3">
-                                                <p className="text-xs text-amber-700 flex items-center gap-1">
-                                                    <Thermometer className="w-3 h-3" />
-                                                    <strong>Storage:</strong> {protocol.storage}
-                                                </p>
+                                        {/* File content */}
+                                        {protocol.content_type === 'file' && protocol.file_url && (
+                                            <div className="mt-4">
+                                                <a
+                                                    href={protocol.file_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-3 p-4 bg-brand-50 rounded-xl hover:bg-brand-100 transition-colors group"
+                                                >
+                                                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                                                        <FileText className="w-6 h-6 text-rose-500" />
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-sm font-semibold text-charcoal-800">{protocol.name} Protocol</p>
+                                                        <p className="text-xs text-charcoal-500">Click to view or download</p>
+                                                    </div>
+                                                    <Download className="w-5 h-5 text-charcoal-400 group-hover:text-rose-500 transition-colors" />
+                                                </a>
                                             </div>
+                                        )}
+
+                                        {/* Text content (original) */}
+                                        {(!protocol.content_type || protocol.content_type === 'text') && (
+                                            <>
+                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 mb-4">
+                                                    <div className="bg-brand-50 rounded-xl p-3">
+                                                        <p className="text-xs text-charcoal-500 uppercase tracking-wider">Dosage</p>
+                                                        <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.dosage}</p>
+                                                    </div>
+                                                    <div className="bg-brand-50 rounded-xl p-3">
+                                                        <p className="text-xs text-charcoal-500 uppercase tracking-wider flex items-center gap-1">
+                                                            <Clock className="w-3 h-3" /> Frequency
+                                                        </p>
+                                                        <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.frequency}</p>
+                                                    </div>
+                                                    <div className="bg-brand-50 rounded-xl p-3">
+                                                        <p className="text-xs text-charcoal-500 uppercase tracking-wider">Duration</p>
+                                                        <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.duration}</p>
+                                                    </div>
+                                                </div>
+
+                                                {protocol.notes && protocol.notes.length > 0 && (
+                                                    <div className="mb-4">
+                                                        <p className="text-xs text-charcoal-500 uppercase tracking-wider mb-2">Protocol Notes</p>
+                                                        <ul className="space-y-2">
+                                                            {protocol.notes.map((note, idx) => (
+                                                                <li key={idx} className="flex items-start gap-2 text-sm text-charcoal-700">
+                                                                    <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
+                                                                    {note}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
+
+                                                {protocol.storage && (
+                                                    <div className="bg-amber-50 rounded-xl p-3">
+                                                        <p className="text-xs text-amber-700 flex items-center gap-1">
+                                                            <Thermometer className="w-3 h-3" />
+                                                            <strong>Storage:</strong> {protocol.storage}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 )}

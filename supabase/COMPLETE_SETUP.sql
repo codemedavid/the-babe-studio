@@ -306,7 +306,7 @@ INSERT INTO public.faqs (question, answer, category, order_index, is_active) VAL
 ('Do you reconstitute (recon) Tirzepatide?', 'Yes — for Metro Manila orders only. We provide free reconstitution when you purchase the complete set.', 'PRODUCT & USAGE', 2, true),
 ('How should peptides be stored?', 'Peptides must be stored in the refrigerator, especially once reconstituted.', 'PRODUCT & USAGE', 3, true),
 ('What payment options do you accept?', 'We accept GCash, Security Bank, and BDO. COD is not accepted, except for Lalamove.', 'PAYMENT METHODS', 4, true),
-('Where are you located?', '📍 Merville, Parañaque City', 'SHIPPING & DELIVERY', 5, true),
+('Where are you located?', '📍 General Trias, Cavite', 'SHIPPING & DELIVERY', 5, true),
 ('How long is shipping?', '📦 J&T Express: Usually 2–3 days (Transit time may vary by location)', 'SHIPPING & DELIVERY', 6, true),
 ('Do you ship nationwide?', 'Yes — J&T Express (nationwide) and Lalamove (Metro Manila & nearby areas)', 'SHIPPING & DELIVERY', 7, true)
 ON CONFLICT DO NOTHING;

@@ -75,7 +75,7 @@ Message me for personalized bundle options.', 'ORDERING & PACKAGING', 7, true),
 → You can pay the rider directly or have the rider pay upfront on your behalf.', 'PAYMENT METHODS', 9, true),
 
 -- Shipping & Delivery
-('Where are you located?', '📍 Merville, Parañaque City', 'SHIPPING & DELIVERY', 10, true),
+('Where are you located?', '📍 General Trias, Cavite', 'SHIPPING & DELIVERY', 10, true),
 
 ('How long is shipping?', '📦 J&T Express: Usually 2–3 days
 (Transit time may vary by location and sorting)', 'SHIPPING & DELIVERY', 11, true),
