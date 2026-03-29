@@ -10,171 +10,53 @@ export function useMenu() {
   useEffect(() => {
     fetchProducts();
 
-    // Set up real-time subscription for product changes with unique channel name
-    const channelId = `products-realtime-${Date.now()}`;
+    // Real-time subscription handles live updates — no need for focus/visibility refetch
     const productsChannel = supabase
-      .channel(channelId)
+      .channel(`products-realtime-${Date.now()}`)
       .on(
         'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'products'
-        },
-        (payload) => {
-          console.log('✅ Product changed:', payload);
-          fetchProducts(); // Refetch all products when any change occurs
-        }
+        { event: '*', schema: 'public', table: 'products' },
+        () => fetchProducts()
       )
       .on(
         'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'product_variations'
-        },
-        (payload) => {
-          console.log('✅ Variation changed:', payload);
-          fetchProducts(); // Refetch all products when variations change
-        }
+        { event: '*', schema: 'public', table: 'product_variations' },
+        () => fetchProducts()
       )
-      .subscribe((status) => {
-        console.log('📡 Real-time subscription status:', status);
-      });
+      .subscribe();
 
-    // Refetch data when window regains focus (user switches back from admin)
-    // But only if we're not on the admin page to avoid interfering with forms
-    let focusRefreshTimeout: ReturnType<typeof setTimeout> | null = null;
-    const handleFocus = () => {
-      // Check if we're on admin page - if so, don't refresh
-      const isAdminPage = window.location.pathname === '/admin';
-      if (isAdminPage) {
-        console.log('👁️ Window focused on admin page - skipping refresh to avoid form interference');
-        return;
-      }
-
-      // Debounce focus refresh to avoid too frequent refreshes
-      if (focusRefreshTimeout) {
-        clearTimeout(focusRefreshTimeout);
-      }
-
-      focusRefreshTimeout = setTimeout(() => {
-        console.log('👁️ Window focused - refreshing products...');
-        fetchProducts();
-        focusRefreshTimeout = null;
-      }, 1000); // Wait 1 second before refreshing
-    };
-
-    // Also add visibility change handler for better cross-tab updates
-    // But skip if on admin page
-    const handleVisibilityChange = () => {
-      if (document.hidden) return;
-
-      const isAdminPage = window.location.pathname === '/admin';
-      if (isAdminPage) {
-        console.log('👁️ Tab became visible on admin page - skipping refresh');
-        return;
-      }
-
-      // Debounce visibility refresh
-      if (focusRefreshTimeout) {
-        clearTimeout(focusRefreshTimeout);
-      }
-
-      focusRefreshTimeout = setTimeout(() => {
-        console.log('👁️ Tab became visible - refreshing products...');
-        fetchProducts();
-        focusRefreshTimeout = null;
-      }, 1000);
-    };
-
-    window.addEventListener('focus', handleFocus);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // Cleanup subscriptions on unmount
     return () => {
       supabase.removeChannel(productsChannel);
-      window.removeEventListener('focus', handleFocus);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      if (focusRefreshTimeout) {
-        clearTimeout(focusRefreshTimeout);
-      }
     };
   }, []);
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      console.log('🔄 Fetching products from database...');
 
-      // Force fresh data by clearing any potential cache
-      const timestamp = Date.now();
+      // Single query with embedded join — replaces N+1 per-product variation queries
       const { data, error } = await supabase
         .from('products')
-        .select('id, name, description, category, base_price, discount_price, discount_start_date, discount_end_date, discount_active, purity_percentage, molecular_weight, cas_number, sequence, storage_conditions, inclusions, stock_quantity, available, featured, image_url, safety_sheet_url, created_at, updated_at')
+        .select('*, product_variations(*)')
         .eq('available', true)
         .order('featured', { ascending: false })
         .order('name', { ascending: true });
 
       if (error) throw error;
 
-      console.log(`📦 Found ${data?.length || 0} products`);
+      const productsWithVariations = (data || []).map((product) => ({
+        ...product,
+        variations: (product.product_variations || []).sort(
+          (a: ProductVariation, b: ProductVariation) => a.quantity_mg - b.quantity_mg
+        ),
+        product_variations: undefined,
+      }));
 
-      // Log products with discounts
-      const productsWithDiscounts = (data || []).filter(p => p.discount_active && p.discount_price);
-      if (productsWithDiscounts.length > 0) {
-        console.log(`💰 Products with ACTIVE discounts: ${productsWithDiscounts.length}`,
-          productsWithDiscounts.map(p => ({
-            name: p.name,
-            base_price: p.base_price,
-            discount_price: p.discount_price,
-            discount_active: p.discount_active,
-            savings: p.base_price - (p.discount_price || 0)
-          }))
-        );
-      } else {
-        console.log('⚠️ No products found with discount_active=true AND discount_price set');
-      }
-
-      // Log products with images for debugging
-      const productsWithImages = (data || []).filter(p => p.image_url);
-      if (productsWithImages.length > 0) {
-        console.log(`🖼️ Products with images: ${productsWithImages.length}`,
-          productsWithImages.map(p => ({ name: p.name, image_url: p.image_url?.substring(0, 50) + '...' }))
-        );
-      }
-
-      // Fetch variations for each product
-      const productsWithVariations = await Promise.all(
-        (data || []).map(async (product) => {
-          const { data: variations } = await supabase
-            .from('product_variations')
-            .select('*')
-            .eq('product_id', product.id)
-            .order('quantity_mg', { ascending: true });
-
-          if (variations && variations.length > 0) {
-            console.log(`  └─ ${product.name}: ${variations.length} variations, prices:`, variations.map(v => `${v.name}:₱${v.price}`));
-          }
-
-          // Log if product has image_url
-          if (product.image_url) {
-            console.log(`  🖼️ ${product.name} has image: ${product.image_url.substring(0, 60)}...`);
-          }
-
-          return {
-            ...product,
-            variations: variations || []
-          };
-        })
-      );
-
-      console.log('✅ Products updated successfully at', new Date().toLocaleTimeString());
       setProducts(productsWithVariations);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch products');
-      console.error('❌ Error fetching products:', err);
+      console.error('Error fetching products:', err);
     } finally {
       setLoading(false);
     }

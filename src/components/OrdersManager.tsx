@@ -3,6 +3,7 @@ import { ArrowLeft, Package, CheckCircle, XCircle, Clock, Truck, AlertCircle, Se
 import { supabase } from '../lib/supabase';
 import { useMenu } from '../hooks/useMenu';
 import { useCouriers } from '../hooks/useCouriers';
+import posthog from '../lib/posthog';
 
 interface OrderItem {
   product_id: string;
@@ -201,6 +202,14 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ onBack }) => {
       // Trigger custom event to refresh inventory sales data
       window.dispatchEvent(new CustomEvent('orderConfirmed'));
 
+      posthog.capture('tbs_order_confirmed', {
+        order_id: order.id,
+        order_number: order.order_number,
+        customer_name: order.customer_name,
+        email: order.customer_email,
+        total_price: order.total_price,
+      });
+
       alert(`Order confirmed! Stock has been deducted from inventory.`);
       setSelectedOrder(null);
     } catch (error: any) {
@@ -224,6 +233,24 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ onBack }) => {
         .eq('id', orderId);
 
       if (error) throw error;
+
+      const order = orders.find(o => o.id === orderId);
+      const eventMap: Record<string, string> = {
+        processing: 'tbs_order_processing',
+        shipped: 'tbs_order_shipped',
+        delivered: 'tbs_order_delivered',
+        cancelled: 'tbs_order_cancelled',
+      };
+      if (eventMap[newStatus]) {
+        posthog.capture(eventMap[newStatus], {
+          order_id: orderId,
+          order_number: order?.order_number,
+          customer_name: order?.customer_name,
+          email: order?.customer_email,
+          previous_status: order?.order_status,
+        });
+      }
+
       await loadOrders();
       if (selectedOrder?.id === orderId) {
         setSelectedOrder({ ...selectedOrder, order_status: newStatus });
@@ -643,17 +670,40 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
                 {order.order_status.charAt(0).toUpperCase() + order.order_status.slice(1)}
               </span>
             </div>
-            {order.order_status === 'new' && (
-              <button
-                onClick={onConfirm}
-                disabled={isProcessing}
-                className="w-full sm:w-auto px-4 md:px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-2 disabled:opacity-50 shadow-md hover:shadow-lg"
-              >
-                <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="hidden sm:inline">{isProcessing ? 'Processing...' : 'Confirm Order & Deduct Stock'}</span>
-                <span className="sm:hidden">{isProcessing ? 'Processing...' : 'Confirm Order'}</span>
-              </button>
-            )}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              {order.order_status === 'new' && (
+                <button
+                  onClick={onConfirm}
+                  disabled={isProcessing}
+                  className="w-full sm:w-auto px-4 md:px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-2 disabled:opacity-50 shadow-md hover:shadow-lg"
+                >
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+                  <span className="hidden sm:inline">{isProcessing ? 'Processing...' : 'Confirm Order & Deduct Stock'}</span>
+                  <span className="sm:hidden">{isProcessing ? 'Processing...' : 'Confirm Order'}</span>
+                </button>
+              )}
+              {order.order_status !== 'cancelled' && (
+                <select
+                  value={order.order_status}
+                  onChange={(e) => {
+                    if (e.target.value === 'confirmed' && order.order_status === 'new') {
+                      onConfirm();
+                    } else {
+                      onUpdateStatus(order.id, e.target.value);
+                    }
+                  }}
+                  disabled={isProcessing}
+                  className="w-full sm:w-auto px-3 md:px-4 py-2 border border-gray-300 rounded-lg text-xs md:text-sm font-medium bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent disabled:opacity-50 cursor-pointer"
+                >
+                  <option value="new">New</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="processing">Processing</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              )}
+            </div>
           </div>
 
           {/* Customer Info */}

@@ -6,6 +6,7 @@ import { useShippingLocations } from '../hooks/useShippingLocations';
 import { useCouriers } from '../hooks/useCouriers';
 import { supabase } from '../lib/supabase';
 import { useImageUpload } from '../hooks/useImageUpload';
+import posthog from '../lib/posthog';
 
 interface CheckoutProps {
     cartItems: CartItem[];
@@ -290,6 +291,25 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
             }
 
             console.log('✅ Order saved to database:', orderData);
+
+            // Build item descriptions for email
+            const items_description = orderItems.map(item =>
+                `${item.quantity}x ${item.product_name}${item.variation_name ? ` - ${item.variation_name}` : ''} (₱${item.price.toLocaleString('en-PH', { minimumFractionDigits: 2 })})`
+            ).join('\n');
+
+            posthog.capture('tbs_order_placed', {
+                order_number: customOrderNumber,
+                order_id: orderData?.id,
+                email: email,
+                customer_name: fullName,
+                total_price: Math.max(0, totalPrice - discountAmount),
+                shipping_fee: shippingFee,
+                item_count: orderItems.length,
+                items_description: items_description,
+                payment_method: paymentMethod?.name,
+                promo_code: appliedPromo?.code || null,
+                discount_applied: discountAmount,
+            });
 
             setOrderNumber(customOrderNumber);
 

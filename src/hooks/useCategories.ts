@@ -153,34 +153,18 @@ export const useCategories = () => {
   useEffect(() => {
     fetchCategories();
 
-    // Set up real-time subscription for category changes
+    // Real-time subscription handles live updates — no need for focus refetch
     const categoriesChannel = supabase
       .channel('categories-changes')
       .on(
         'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'categories'
-        },
-        (payload) => {
-          console.log('Category changed:', payload);
-          fetchCategories(); // Refetch categories when any change occurs
-        }
+        { event: '*', schema: 'public', table: 'categories' },
+        () => fetchCategories()
       )
       .subscribe();
 
-    // Refetch data when window regains focus
-    const handleFocus = () => {
-      fetchCategories();
-    };
-
-    window.addEventListener('focus', handleFocus);
-
-    // Cleanup subscriptions on unmount
     return () => {
       supabase.removeChannel(categoriesChannel);
-      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 

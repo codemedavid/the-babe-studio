@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Package, Truck, CheckCircle, Clock, AlertCircle, ArrowRight, ExternalLink, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import posthog from '../lib/posthog';
 
 interface TrackingOrder {
     id: string;
@@ -56,6 +57,10 @@ const OrderTracking: React.FC = () => {
             } else if (data) {
                 // RPC returns the row directly when using single()
                 setOrder(data as TrackingOrder);
+                posthog.capture('tbs_order_tracked', {
+                    order_number: data.order_number,
+                    order_status: data.order_status,
+                });
             } else {
                 setError('Order not found.');
             }

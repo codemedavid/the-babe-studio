@@ -1,7 +1,10 @@
-import { Suspense, lazy, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { usePostHog } from 'posthog-js/react';
 import { useCart } from './hooks/useCart';
 import Header from './components/Header';
+import PromoBanner from './components/PromoBanner';
+import PromoPopup from './components/PromoPopup';
 import SubNav from './components/SubNav';
 import Menu from './components/Menu';
 import Cart from './components/Cart';
@@ -49,6 +52,9 @@ function MainApp() {
                 onCartClick={() => handleViewChange('cart')}
                 onMenuClick={() => handleViewChange('menu')}
             />
+
+            <PromoBanner />
+            <PromoPopup />
 
             {currentView === 'menu' && (
                 <SubNav selectedCategory={selectedCategory} onCategoryClick={handleCategoryClick} />
@@ -99,11 +105,27 @@ function MainApp() {
 }
 
 
+function PostHogPageviewTracker() {
+    const location = useLocation();
+    const posthog = usePostHog();
+
+    useEffect(() => {
+        if (posthog) {
+            posthog.capture('$pageview', {
+                $current_url: window.location.href,
+            });
+        }
+    }, [location, posthog]);
+
+    return null;
+}
+
 function App() {
     //   const { coaPageEnabled } = useCOAPageSetting();
 
     return (
         <Router>
+            <PostHogPageviewTracker />
             <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                     <Route path="/" element={<MainApp />} />
