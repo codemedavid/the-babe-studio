@@ -1,10 +1,7 @@
 import posthog from 'posthog-js';
 
 export function initPostHog() {
-  console.log('[PostHog] initPostHog() called');
-
   const key = import.meta.env.VITE_POSTHOG_KEY;
-  console.log('[PostHog] Key present:', !!key, 'Key starts with:', key?.substring(0, 8));
 
   if (!key) {
     console.warn('[PostHog] VITE_POSTHOG_KEY is not set — events will not be captured.');
@@ -19,21 +16,32 @@ export function initPostHog() {
       capture_pageleave: true,
       autocapture: true,
       debug: import.meta.env.DEV,
-      loaded: (ph) => {
-        console.log('[PostHog] SDK loaded. Distinct ID:', ph.get_distinct_id());
-        ph.capture('tbs_sdk_loaded', { source: 'init_loaded_callback' });
-        console.log('[PostHog] Test event "tbs_sdk_loaded" sent');
-      },
+      person_profiles: 'identified_only',
     });
-    console.log('[PostHog] posthog.init() called successfully. __loaded:', posthog.__loaded);
   } catch (err) {
     console.error('[PostHog] init() threw an error:', err);
   }
 }
 
-// Expose for browser console debugging: type window.__posthog in console
-if (typeof window !== 'undefined') {
-  (window as any).__posthog = posthog;
+/**
+ * Identify a user by email and set person properties.
+ * PostHog uses these properties to send emails and target users.
+ */
+export function identifyUser(email: string, properties?: Record<string, any>) {
+  if (!email) return;
+
+  posthog.identify(email, {
+    email,
+    ...properties,
+  });
+}
+
+/**
+ * Reset the identified user (e.g. after checkout or session end).
+ * Creates a new anonymous ID for the next visitor.
+ */
+export function resetUser() {
+  posthog.reset();
 }
 
 export default posthog;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Sparkles, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import posthog from '../lib/posthog';
+import posthog, { identifyUser } from '../lib/posthog';
 
 const SHOWN_KEY = 'tbs_promo_popup_shown';
 const SUBMITTED_KEY = 'tbs_promo_popup_submitted';
@@ -55,6 +55,7 @@ const PromoPopup: React.FC = () => {
         if (dbError.code === '23505') {
           setSubmitted(true);
           localStorage.setItem(SUBMITTED_KEY, 'true');
+          identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_popup' });
           posthog.capture('tbs_promo_popup_subscribed', { email: trimmed, already_subscribed: true });
         } else {
           setError('Something went wrong. Please try again.');
@@ -62,6 +63,7 @@ const PromoPopup: React.FC = () => {
       } else {
         setSubmitted(true);
         localStorage.setItem(SUBMITTED_KEY, 'true');
+        identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_popup' });
         posthog.capture('tbs_promo_popup_subscribed', { email: trimmed });
       }
     } catch {

@@ -6,7 +6,7 @@ import { useShippingLocations } from '../hooks/useShippingLocations';
 import { useCouriers } from '../hooks/useCouriers';
 import { supabase } from '../lib/supabase';
 import { useImageUpload } from '../hooks/useImageUpload';
-import posthog from '../lib/posthog';
+import posthog, { identifyUser } from '../lib/posthog';
 
 interface CheckoutProps {
     cartItems: CartItem[];
@@ -297,16 +297,31 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
                 `${item.quantity}x ${item.product_name}${item.variation_name ? ` - ${item.variation_name}` : ''} (₱${item.price.toLocaleString('en-PH', { minimumFractionDigits: 2 })})`
             ).join('\n');
 
+            // Identify the customer in PostHog so emails can be sent
+            identifyUser(email, {
+                name: fullName,
+                phone: phone,
+                city: city,
+                state: state,
+                last_order_number: customOrderNumber,
+                last_order_date: new Date().toISOString(),
+            });
+
             posthog.capture('tbs_order_placed', {
                 order_number: customOrderNumber,
                 order_id: orderData?.id,
                 email: email,
                 customer_name: fullName,
+                customer_phone: phone,
                 total_price: Math.max(0, totalPrice - discountAmount),
                 shipping_fee: shippingFee,
+                final_total: finalTotal,
                 item_count: orderItems.length,
                 items_description: items_description,
                 payment_method: paymentMethod?.name,
+                shipping_address: `${address}, ${barangay}, ${city}, ${state} ${zipCode}`,
+                courier: couriers.find(c => c.id === selectedCourierId)?.name || 'N/A',
+                contact_method: contactMethod,
                 promo_code: appliedPromo?.code || null,
                 discount_applied: discountAmount,
             });

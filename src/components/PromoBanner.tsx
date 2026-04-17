@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Gift, ArrowRight, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import posthog from '../lib/posthog';
+import posthog, { identifyUser } from '../lib/posthog';
 
 const DISMISSED_KEY = 'tbs_promo_banner_dismissed';
 
@@ -58,12 +58,14 @@ const PromoBanner: React.FC = () => {
       if (dbError) {
         if (dbError.code === '23505') {
           setSubmitted(true);
+          identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_banner' });
           posthog.capture('tbs_promo_banner_subscribed', { email: trimmed, already_subscribed: true });
         } else {
           setError('Something went wrong. Please try again.');
         }
       } else {
         setSubmitted(true);
+        identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_banner' });
         posthog.capture('tbs_promo_banner_subscribed', { email: trimmed });
       }
     } catch {

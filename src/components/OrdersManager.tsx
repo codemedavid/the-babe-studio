@@ -202,12 +202,25 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ onBack }) => {
       // Trigger custom event to refresh inventory sales data
       window.dispatchEvent(new CustomEvent('orderConfirmed'));
 
+      // Build items description for email template
+      const items_description = order.order_items.map(item =>
+        `${item.quantity}x ${item.product_name}${item.variation_name ? ` - ${item.variation_name}` : ''} (₱${item.price.toLocaleString('en-PH', { minimumFractionDigits: 2 })})`
+      ).join('\n');
+
       posthog.capture('tbs_order_confirmed', {
         order_id: order.id,
         order_number: order.order_number,
         customer_name: order.customer_name,
         email: order.customer_email,
+        customer_phone: order.customer_phone,
         total_price: order.total_price,
+        shipping_fee: order.shipping_fee,
+        item_count: order.order_items.length,
+        items_description,
+        payment_method: order.payment_method_name,
+        promo_code: order.promo_code,
+        discount_applied: order.discount_applied,
+        $set: { email: order.customer_email, name: order.customer_name },
       });
 
       alert(`Order confirmed! Stock has been deducted from inventory.`);
@@ -241,13 +254,27 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ onBack }) => {
         delivered: 'tbs_order_delivered',
         cancelled: 'tbs_order_cancelled',
       };
-      if (eventMap[newStatus]) {
+      if (eventMap[newStatus] && order) {
+        const items_description = order.order_items.map(item =>
+          `${item.quantity}x ${item.product_name}${item.variation_name ? ` - ${item.variation_name}` : ''}`
+        ).join('\n');
+
         posthog.capture(eventMap[newStatus], {
           order_id: orderId,
-          order_number: order?.order_number,
-          customer_name: order?.customer_name,
-          email: order?.customer_email,
-          previous_status: order?.order_status,
+          order_number: order.order_number,
+          customer_name: order.customer_name,
+          email: order.customer_email,
+          customer_phone: order.customer_phone,
+          total_price: order.total_price,
+          shipping_fee: order.shipping_fee,
+          items_description,
+          item_count: order.order_items.length,
+          tracking_number: order.tracking_number,
+          shipping_provider: order.shipping_provider,
+          previous_status: order.order_status,
+          promo_code: order.promo_code,
+          discount_applied: order.discount_applied,
+          $set: { email: order.customer_email, name: order.customer_name },
         });
       }
 
