@@ -10,11 +10,12 @@ export function initPostHog() {
 
   try {
     posthog.init(key, {
-      api_host: '/ingest',
+      api_host: import.meta.env.VITE_POSTHOG_HOST || '/ingest',
       ui_host: 'https://us.posthog.com',
       capture_pageview: false,
       capture_pageleave: true,
       autocapture: true,
+      capture_dead_clicks: false,
       debug: import.meta.env.DEV,
       person_profiles: 'identified_only',
     });

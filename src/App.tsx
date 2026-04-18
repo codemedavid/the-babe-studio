@@ -15,6 +15,8 @@ import LoadingSpinner from './components/LoadingSpinner';
 
 // Lazy load route components
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+const AssessmentWizard = lazy(() => import('./components/AssessmentWizard'));
+const AssessmentResults = lazy(() => import('./components/AssessmentResults'));
 const COA = lazy(() => import('./components/COA'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const PeptideCalculator = lazy(() => import('./components/PeptideCalculator'));
@@ -129,12 +131,13 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                     <Route path="/" element={<MainApp />} />
+                    <Route path="/assessment" element={<AssessmentWizard />} />
+                    <Route path="/assessment/results" element={<AssessmentResults />} />
                     <Route path="/coa" element={<COA />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/calculator" element={<PeptideCalculator />} />
                     <Route path="/track-order" element={<OrderTracking />} />
                     <Route path="/protocols" element={<ProtocolGuide />} />
-                    {/* Peptalk routes removed */}
                     <Route path="/admin" element={<AdminDashboard />} />
                 </Routes>
             </Suspense>

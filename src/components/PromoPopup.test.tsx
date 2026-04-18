@@ -10,11 +10,11 @@ vi.mock('../lib/posthog', () => ({
 }));
 
 // Mock supabase - use lazy arrow to avoid hoisting issue
-const mockInsert = vi.fn().mockResolvedValue({ error: null });
+const mockUpsert = vi.fn().mockResolvedValue({ error: null });
 vi.mock('../lib/supabase', () => ({
   supabase: {
     from: () => ({
-      insert: (...args: unknown[]) => mockInsert(...args),
+      upsert: (...args: unknown[]) => mockUpsert(...args),
     }),
   },
 }));
@@ -34,7 +34,7 @@ describe('PromoPopup', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
-    mockInsert.mockResolvedValue({ error: null });
+    mockUpsert.mockResolvedValue({ error: null });
   });
 
   afterEach(() => {
@@ -145,7 +145,7 @@ describe('PromoPopup', () => {
       renderAndShow();
 
       await userEvent.click(screen.getByText('Get Exclusive Promos'));
-      expect(mockInsert).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
     });
 
     it('shows validation error for invalid email', async () => {
@@ -156,7 +156,7 @@ describe('PromoPopup', () => {
       await userEvent.click(screen.getByText('Get Exclusive Promos'));
 
       expect(screen.getByText('Please enter a valid email address')).toBeInTheDocument();
-      expect(mockInsert).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
     });
 
     it('submits valid email and shows success', async () => {
@@ -166,10 +166,10 @@ describe('PromoPopup', () => {
       await userEvent.click(screen.getByText('Get Exclusive Promos'));
 
       await waitFor(() => {
-        expect(mockInsert).toHaveBeenCalledWith({
-          email: 'user@example.com',
-          source: 'tbs_promo_popup',
-        });
+        expect(mockUpsert).toHaveBeenCalledWith(
+          { email: 'user@example.com', source: 'tbs_promo_popup' },
+          { onConflict: 'email', ignoreDuplicates: true },
+        );
       });
 
       expect(screen.getByText("You're on the list!")).toBeInTheDocument();
@@ -189,7 +189,7 @@ describe('PromoPopup', () => {
 
     it('shows "Subscribing..." while submitting', async () => {
       let resolveInsert!: (value: any) => void;
-      mockInsert.mockReturnValueOnce(new Promise(r => { resolveInsert = r; }));
+      mockUpsert.mockReturnValueOnce(new Promise(r => { resolveInsert = r; }));
 
       renderAndShow();
 
@@ -208,8 +208,8 @@ describe('PromoPopup', () => {
   // --- Error Handling ---
 
   describe('error handling', () => {
-    it('handles duplicate email (23505) as success', async () => {
-      mockInsert.mockResolvedValueOnce({ error: { code: '23505' } });
+    it('handles duplicate email silently via upsert', async () => {
+      mockUpsert.mockResolvedValueOnce({ error: null });
       renderAndShow();
 
       await userEvent.type(screen.getByPlaceholderText('your@email.com'), 'existing@test.com');
@@ -221,7 +221,7 @@ describe('PromoPopup', () => {
     });
 
     it('shows error for non-duplicate DB errors', async () => {
-      mockInsert.mockResolvedValueOnce({ error: { code: '500', message: 'fail' } });
+      mockUpsert.mockResolvedValueOnce({ error: { code: '500', message: 'fail' } });
       renderAndShow();
 
       await userEvent.type(screen.getByPlaceholderText('your@email.com'), 'user@test.com');
@@ -233,7 +233,7 @@ describe('PromoPopup', () => {
     });
 
     it('shows error when insert throws', async () => {
-      mockInsert.mockRejectedValueOnce(new Error('Network failure'));
+      mockUpsert.mockRejectedValueOnce(new Error('Network failure'));
       renderAndShow();
 
       await userEvent.type(screen.getByPlaceholderText('your@email.com'), 'user@test.com');

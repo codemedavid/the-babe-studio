@@ -49,17 +49,10 @@ const PromoPopup: React.FC = () => {
     try {
       const { error: dbError } = await supabase
         .from('promo_subscribers')
-        .insert({ email: trimmed, source: 'tbs_promo_popup' });
+        .upsert({ email: trimmed, source: 'tbs_promo_popup' }, { onConflict: 'email', ignoreDuplicates: true });
 
       if (dbError) {
-        if (dbError.code === '23505') {
-          setSubmitted(true);
-          localStorage.setItem(SUBMITTED_KEY, 'true');
-          identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_popup' });
-          posthog.capture('tbs_promo_popup_subscribed', { email: trimmed, already_subscribed: true });
-        } else {
-          setError('Something went wrong. Please try again.');
-        }
+        setError('Something went wrong. Please try again.');
       } else {
         setSubmitted(true);
         localStorage.setItem(SUBMITTED_KEY, 'true');

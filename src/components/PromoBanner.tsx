@@ -53,16 +53,10 @@ const PromoBanner: React.FC = () => {
     try {
       const { error: dbError } = await supabase
         .from('promo_subscribers')
-        .insert({ email: trimmed, source: 'tbs_promo_banner' });
+        .upsert({ email: trimmed, source: 'tbs_promo_banner' }, { onConflict: 'email', ignoreDuplicates: true });
 
       if (dbError) {
-        if (dbError.code === '23505') {
-          setSubmitted(true);
-          identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_banner' });
-          posthog.capture('tbs_promo_banner_subscribed', { email: trimmed, already_subscribed: true });
-        } else {
-          setError('Something went wrong. Please try again.');
-        }
+        setError('Something went wrong. Please try again.');
       } else {
         setSubmitted(true);
         identifyUser(trimmed, { subscribed: true, subscription_source: 'promo_banner' });

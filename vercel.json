@@ -15,7 +15,7 @@
       "destination": "https://us.i.posthog.com/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/|ingest/|assets/).*)",
       "destination": "/index.html"
     }
   ]

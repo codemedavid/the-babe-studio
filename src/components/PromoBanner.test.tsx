@@ -10,11 +10,11 @@ vi.mock('../lib/posthog', () => ({
 }));
 
 // Mock supabase - use lazy arrow to avoid hoisting issue
-const mockInsert = vi.fn().mockResolvedValue({ error: null });
+const mockUpsert = vi.fn().mockResolvedValue({ error: null });
 vi.mock('../lib/supabase', () => ({
   supabase: {
     from: () => ({
-      insert: (...args: unknown[]) => mockInsert(...args),
+      upsert: (...args: unknown[]) => mockUpsert(...args),
     }),
   },
 }));
@@ -23,7 +23,7 @@ describe('PromoBanner', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
-    mockInsert.mockResolvedValue({ error: null });
+    mockUpsert.mockResolvedValue({ error: null });
   });
 
   // --- Visibility ---
@@ -79,7 +79,7 @@ describe('PromoBanner', () => {
 
       await userEvent.click(screen.getByText('Join'));
 
-      expect(mockInsert).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
     });
 
     it('shows validation error for invalid email', async () => {
@@ -90,7 +90,7 @@ describe('PromoBanner', () => {
       await userEvent.click(screen.getByText('Join'));
 
       expect(screen.getByText('Please enter a valid email address')).toBeInTheDocument();
-      expect(mockInsert).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
     });
 
     it('clears validation error when typing', async () => {
@@ -111,10 +111,10 @@ describe('PromoBanner', () => {
       await userEvent.click(screen.getByText('Join'));
 
       await waitFor(() => {
-        expect(mockInsert).toHaveBeenCalledWith({
-          email: 'user@example.com',
-          source: 'tbs_promo_banner',
-        });
+        expect(mockUpsert).toHaveBeenCalledWith(
+          { email: 'user@example.com', source: 'tbs_promo_banner' },
+          { onConflict: 'email', ignoreDuplicates: true },
+        );
       });
 
       expect(screen.getByText(/You're in!/)).toBeInTheDocument();
@@ -127,16 +127,16 @@ describe('PromoBanner', () => {
       await userEvent.click(screen.getByText('Join'));
 
       await waitFor(() => {
-        expect(mockInsert).toHaveBeenCalledWith({
-          email: 'user@example.com',
-          source: 'tbs_promo_banner',
-        });
+        expect(mockUpsert).toHaveBeenCalledWith(
+          { email: 'user@example.com', source: 'tbs_promo_banner' },
+          { onConflict: 'email', ignoreDuplicates: true },
+        );
       });
     });
 
     it('shows "Joining..." while submitting', async () => {
       let resolveInsert!: (value: any) => void;
-      mockInsert.mockReturnValueOnce(new Promise(r => { resolveInsert = r; }));
+      mockUpsert.mockReturnValueOnce(new Promise(r => { resolveInsert = r; }));
 
       render(<PromoBanner />);
 
@@ -155,8 +155,8 @@ describe('PromoBanner', () => {
   // --- Duplicate & Error Handling ---
 
   describe('error handling', () => {
-    it('handles duplicate email (23505) gracefully as success', async () => {
-      mockInsert.mockResolvedValueOnce({ error: { code: '23505', message: 'duplicate' } });
+    it('handles duplicate email silently via upsert', async () => {
+      mockUpsert.mockResolvedValueOnce({ error: null });
 
       render(<PromoBanner />);
 
@@ -169,7 +169,7 @@ describe('PromoBanner', () => {
     });
 
     it('shows error for non-duplicate DB errors', async () => {
-      mockInsert.mockResolvedValueOnce({ error: { code: '500', message: 'Server error' } });
+      mockUpsert.mockResolvedValueOnce({ error: { code: '500', message: 'Server error' } });
 
       render(<PromoBanner />);
 
@@ -182,7 +182,7 @@ describe('PromoBanner', () => {
     });
 
     it('shows error when insert throws an exception', async () => {
-      mockInsert.mockRejectedValueOnce(new Error('Network failure'));
+      mockUpsert.mockRejectedValueOnce(new Error('Network failure'));
 
       render(<PromoBanner />);
 
