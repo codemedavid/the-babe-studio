@@ -106,9 +106,9 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
           </div>
 
           {/* Results Count */}
-          <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h2 className="text-3xl font-heading font-semibold text-charcoal-900 tracking-tight">Our Peptide Collection</h2>
-            <span className="text-sm font-medium text-gray-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
+          <div className="mb-6 sm:mb-8 flex flex-row items-center justify-between gap-3 flex-wrap">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-semibold text-charcoal-900 tracking-tight">Our Peptide Collection</h2>
+            <span className="text-xs sm:text-sm font-medium text-gray-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100 whitespace-nowrap">
               {sortedProducts.length} Results
             </span>
           </div>

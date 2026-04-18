@@ -181,13 +181,13 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
                 onAddToCart?.(product, selectedVariation, 1);
               }}
               disabled={!product.available || !hasAnyStock}
-              className={`w-full py-2.5 sm:py-3 text-[11px] sm:text-sm flex items-center justify-center gap-2 font-semibold transition-all
+              className={`w-full py-2 sm:py-3 px-2 text-[11px] sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 font-semibold whitespace-nowrap transition-all
                 ${(!product.available || !hasAnyStock)
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed rounded'
                   : 'btn-primary'}
               `}
             >
-              <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>Add to Cart</span>
             </button>
           </div>

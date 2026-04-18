@@ -19,8 +19,10 @@ const ProtocolGuide: React.FC = () => {
         window.location.href = '/';
     };
 
-    // Filter only active protocols
-    const activeProtocols = protocols.filter(p => p.active);
+    // Filter only active protocols, and hide placeholder rows with no real dosing data
+    const activeProtocols = protocols.filter(
+        p => p.active && p.dosage !== 'Consult healthcare professional for dosing'
+    );
 
     // Get unique categories
     const categories = ['all', ...Array.from(new Set(activeProtocols.map(p => p.category)))];

@@ -49,13 +49,17 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               Shop Peptides
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button
-              onClick={onShopAll}
+            <a
+              href="/assessment"
               className="w-full sm:w-auto px-8 py-4 bg-transparent border border-charcoal-300 text-charcoal-800 hover:border-charcoal-800 hover:bg-charcoal-50 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center"
             >
-              Learn More
-            </button>
+              Take Assessment
+            </a>
           </div>
+
+          <p className="mt-4 text-sm text-charcoal-500 italic">
+            Not sure which peptide is right for you? Click <span className="font-semibold text-brand-600">Take Assessment</span> to get a personalized recommendation.
+          </p>
 
           {/* Trust Indicators */}
           <div className="mt-12 flex flex-wrap gap-6 border-t border-charcoal-100 pt-8">

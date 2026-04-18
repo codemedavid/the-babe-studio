@@ -251,31 +251,17 @@ export const protocolTemplates: Record<string, ProtocolTemplate> = {
         storage: 'Refrigerate after reconstitution. Use within 30 days.'
     },
 
-    // Default template for uncategorized products
-    'default': {
-        dosage: 'Consult healthcare professional for dosing',
-        frequency: 'As directed by healthcare provider',
-        duration: 'Follow recommended cycle length',
-        notes: [
-            'Always consult with a healthcare professional before use',
-            'Start with lowest effective dose',
-            'Store according to product instructions',
-            'Report any adverse reactions immediately',
-            'Keep out of reach of children',
-            'For research purposes only'
-        ],
-        storage: 'Refrigerate after reconstitution. Follow product-specific guidelines.'
-    }
 };
 
-// Function to get protocol template for a category
-export const getProtocolTemplate = (category: string): ProtocolTemplate => {
-    return protocolTemplates[category] || protocolTemplates['default'];
+// Function to get protocol template for a category (null if not found — no placeholder fallback)
+export const getProtocolTemplate = (category: string): ProtocolTemplate | null => {
+    return protocolTemplates[category] || null;
 };
 
-// Function to generate a protocol for a product
+// Returns null when we have no real template for this category, so callers can skip creating placeholder rows.
 export const generateProtocolFromTemplate = (productName: string, category: string) => {
     const template = getProtocolTemplate(category);
+    if (!template) return null;
 
     return {
         name: `${productName} Protocol`,

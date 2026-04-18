@@ -16,6 +16,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 // Lazy load route components
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
 const AssessmentWizard = lazy(() => import('./components/AssessmentWizard'));
+const AssessmentWizardCopy = lazy(() => import('./components/AssessmentWizardCopy'));
 const AssessmentResults = lazy(() => import('./components/AssessmentResults'));
 const COA = lazy(() => import('./components/COA'));
 const FAQ = lazy(() => import('./components/FAQ'));
@@ -132,6 +133,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<MainApp />} />
                     <Route path="/assessment" element={<AssessmentWizard />} />
+                    <Route path="/assessment-copy" element={<AssessmentWizardCopy />} />
                     <Route path="/assessment/results" element={<AssessmentResults />} />
                     <Route path="/coa" element={<COA />} />
                     <Route path="/faq" element={<FAQ />} />

@@ -48,7 +48,7 @@
 
   /* Luxury Card Styles */
   .card {
-    @apply bg-white rounded-2xl shadow-soft border border-brand-300 p-6 transition-all duration-300 hover:shadow-luxury hover:border-brand-500;
+    @apply bg-white rounded-2xl shadow-soft border border-brand-300 p-3 sm:p-6 transition-all duration-300 hover:shadow-luxury hover:border-brand-500;
   }
 
   .input-field {

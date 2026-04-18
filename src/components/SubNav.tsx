@@ -26,7 +26,7 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
     return (
         <nav className="bg-white/95 backdrop-blur-xl sticky top-[64px] md:top-[80px] lg:top-[88px] z-40 border-b border-gray-100 shadow-soft">
             <div className="container mx-auto px-4">
-                <div className="flex items-center space-x-2 py-4 overflow-x-auto scrollbar-hide">
+                <div className="flex items-center gap-2 py-3 sm:py-4 overflow-x-auto scrollbar-hide -mx-4 px-4 pr-8 sm:mx-0 sm:px-0 sm:pr-0 snap-x snap-mandatory">
                     {categories.map((category) => {
                         const isSelected = selectedCategory === category.id;
 
@@ -35,8 +35,8 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
                                 key={category.id}
                                 onClick={() => onCategoryClick(category.id)}
                                 className={`
-                  flex items-center space-x-2 px-5 py-2.5 rounded-lg font-bold whitespace-nowrap
-                  transition-all duration-300 text-sm uppercase tracking-wider
+                  shrink-0 snap-start flex items-center space-x-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-bold whitespace-nowrap
+                  transition-all duration-300 text-xs sm:text-sm uppercase tracking-wider
                   ${isSelected
                                         ? 'bg-brand-600 text-white shadow-glow'
                                         : 'bg-white text-charcoal-500 hover:text-brand-600 hover:bg-brand-50 border border-brand-100'
